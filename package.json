@@ -1,0 +1,19 @@
+{
+  "name": "redux-crud-observable",
+  "version": "0.0.0",
+  "description": "Actions, reducers & epics for managing crud redux state",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hourliert/redux-crud-observable.git"
+  },
+  "author": "Thomas Hourlier <hourliert@gmail.com> (https://github.com/hourliert)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hourliert/redux-crud-observable/issues"
+  },
+  "homepage": "https://github.com/hourliert/redux-crud-observable#readme"
+}
