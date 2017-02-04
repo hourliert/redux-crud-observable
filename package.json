@@ -9,7 +9,8 @@
     "preversion": "npm test && npm run compile",
 
     "start": "npm run test:watch",
-    "test": "jest --colors",
+    "test": "npm run test:coverage",
+    "test:once": "jest --colors",
     "test:watch": "jest --watch --watchExtensions ts,tsx,js --colors",
     "test:coverage": "jest --coverage --colors",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
