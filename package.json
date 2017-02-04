@@ -1,13 +1,12 @@
 {
   "name": "redux-crud-observable",
-  "version": "0.0.0",
+  "version": "1.0.0-0",
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
     "preversion": "npm test && npm run compile",
-
     "start": "npm run test:watch",
     "test": "npm run test:coverage",
     "test:once": "jest --colors",
@@ -37,9 +36,17 @@
     "typescript": "^2.1.5"
   },
   "jest": {
-    "testPathDirs": ["src"],
+    "testPathDirs": [
+      "src"
+    ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "node"
+    ],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     }
