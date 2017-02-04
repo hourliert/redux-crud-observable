@@ -1,3 +1,3 @@
-export function sayHi(): string {
-  return 'Hi!';
+export function sayHi(user: string = 'John'): string {
+  return `Hi ${user}!`;
 }
