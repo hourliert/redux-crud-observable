@@ -4,7 +4,19 @@
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "npm run compile",
+    "pretest": "npm run lint",
+    "preversion": "npm test && npm run compile",
+
+    "start": "npm run test:watch",
+    "test": "jest --colors",
+    "test:watch": "jest --watch --watchExtensions ts,tsx,js --colors",
+    "test:coverage": "jest --coverage --colors",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "compile": "npm run compile:es5 & npm run compile:es6",
+    "compile:es5": "tsc -p .",
+    "compile:es6": "tsc -p . --target ES6 --module ES6 --outDir ./es",
+    "compile:watch": "npm run compile:es5 -- -w"
   },
   "repository": {
     "type": "git",
@@ -15,5 +27,20 @@
   "bugs": {
     "url": "https://github.com/hourliert/redux-crud-observable/issues"
   },
-  "homepage": "https://github.com/hourliert/redux-crud-observable#readme"
+  "homepage": "https://github.com/hourliert/redux-crud-observable#readme",
+  "devDependencies": {
+    "@types/jest": "^18.1.1",
+    "jest": "^18.1.0",
+    "ts-jest": "^18.0.2",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5"
+  },
+  "jest": {
+    "testPathDirs": ["src"],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "json", "node"],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    }
+  }
 }

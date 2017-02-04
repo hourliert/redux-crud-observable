@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - v6
+  - v7
+before_install: npm install -g codecov
+after_success:
+  - codecov -e TRAVIS_NODE_VERSION
