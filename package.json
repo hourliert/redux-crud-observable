@@ -3,6 +3,7 @@
   "version": "1.0.0-0",
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
+  "module": "es/index.js",
   "scripts": {
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
