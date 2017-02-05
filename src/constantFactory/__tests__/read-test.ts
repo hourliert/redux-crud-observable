@@ -1,4 +1,4 @@
-import { READ, READ_BATCH, READ_LIST } from '../READ';
+import { READ, READ_BATCH, READ_LIST } from '../read';
 
 describe('READ constant factory', () => {
   const ENTITY = 'NINJA';

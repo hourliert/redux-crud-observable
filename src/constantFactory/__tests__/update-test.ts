@@ -1,4 +1,4 @@
-import { UPDATE } from '../UPDATE';
+import { UPDATE } from '../update';
 
 describe('UPDATE constant factory', () => {
   const ENTITY = 'NINJA';

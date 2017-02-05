@@ -1,4 +1,4 @@
-import { DELETE, DELETE_BATCH } from '../DELETE';
+import { DELETE, DELETE_BATCH } from '../delete';
 
 describe('DELETE constant factory', () => {
   const ENTITY = 'NINJA';
