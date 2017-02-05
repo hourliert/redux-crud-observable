@@ -22,7 +22,7 @@ export default function crudReducerFactory(
       upgradedState,
     ),
     {
-      [INIT_STORE(ENTITY)](state: CrudState, action: InitStoreAction) {
+      [INIT_STORE(ENTITY)](state: CrudState, action: InitStoreAction): CrudState {
         return state.set('bootTime', action.payload.now);
       },
 
