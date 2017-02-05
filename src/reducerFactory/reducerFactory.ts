@@ -1,8 +1,12 @@
 import { Reducer, ReducersMapObject } from 'redux';
 import { reducerFactory } from 'redux-rac-utils';
 import { initialState } from 'config';
+import { INIT_STORE } from 'constantFactory';
 
-import { CrudState } from './interfaces';
+import {
+  CrudState,
+  InitStoreAction,
+} from './interfaces';
 import computeInitialState from './computeInitialState';
 
 export default function crudReducerFactory(
@@ -18,6 +22,10 @@ export default function crudReducerFactory(
       upgradedState,
     ),
     {
+      [INIT_STORE(ENTITY)](state: CrudState, action: InitStoreAction) {
+        return state.set('bootTime', action.payload.now);
+      },
+
       ...upgradedReducers,
     },
   );

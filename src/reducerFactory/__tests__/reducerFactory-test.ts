@@ -1,3 +1,7 @@
+import { Reducer } from 'redux';
+import { INIT_STORE } from 'constantFactory';
+
+import { CrudState } from '../interfaces';
 import crudReducerFactory from '../reducerFactory';
 
 describe('Crud Reducer Factory', () => {
@@ -45,10 +49,22 @@ describe('Crud Reducer Factory', () => {
   });
 
   describe('with a CRUD reducer', () => {
-    let reducer;
+    let reducer: Reducer<CrudState>;
 
     beforeEach(() => {
       reducer = crudReducerFactory(ENTITY);
+    });
+
+    it('inits the reducer store', () => {
+      const now = new Date();
+      const action = {
+        payload: { now },
+        type: INIT_STORE(ENTITY),
+      };
+
+      const state = reducer(<any>undefined, action);
+
+      expect(state.get('bootTime')).toEqual(now);
     });
   });
 });
