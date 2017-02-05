@@ -2,10 +2,12 @@ import { Reducer, ReducersMapObject } from 'redux';
 import { reducerFactory } from 'redux-rac-utils';
 import { initialState } from 'config';
 import { INIT_STORE } from 'constantFactory';
+import {
+  InitStoreAction,
+} from 'actionsCreatorFactory';
 
 import {
   CrudState,
-  InitStoreAction,
 } from './interfaces';
 import computeInitialState from './computeInitialState';
 
