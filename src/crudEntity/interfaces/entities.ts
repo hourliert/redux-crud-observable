@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-export interface Entity {
+export interface IEntity {
   hash: string;
 }
 

@@ -1,5 +1,5 @@
 import { Action } from 'redux';
 
-export interface InitStoreAction extends Action {
+export interface IInitStoreAction extends Action {
   payload: { now: Date };
 }
