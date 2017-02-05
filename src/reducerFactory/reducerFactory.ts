@@ -1,20 +1,11 @@
 import { Reducer, ReducersMapObject } from 'redux';
 import { reducerFactory } from 'redux-rac-utils';
 import { initialState } from 'config';
-import {
-  INIT_STORE,
-  READ,
-} from 'constantFactory';
-import {
-  InitStoreAction,
-  ReadEntityAction,
-} from 'actionsCreatorFactory';
-import { formatEntity } from 'crudEntity';
 
-import {
-  CrudState,
-} from './interfaces';
+import { CrudState } from './interfaces';
 import computeInitialState from './computeInitialState';
+import storeHandlersFactory from './storeHandlersFactory';
+import readHandlersFactory from './readHandlersFactory';
 
 export default function crudReducerFactory(
   ENTITY: string,
@@ -29,14 +20,8 @@ export default function crudReducerFactory(
       upgradedState,
     ),
     {
-      [INIT_STORE(ENTITY)](state: CrudState, action: InitStoreAction): CrudState {
-        return state.set('bootTime', action.payload.now);
-      },
-
-      [READ(ENTITY).FINISH](state: CrudState, action: ReadEntityAction): CrudState {
-        return state
-          .mergeIn(['value'], formatEntity(action.payload));
-      },
+      ...storeHandlersFactory(ENTITY),
+      ...readHandlersFactory(ENTITY),
 
       ...upgradedReducers,
     },
