@@ -1,10 +1,15 @@
 import { Reducer, ReducersMapObject } from 'redux';
 import { reducerFactory } from 'redux-rac-utils';
 import { initialState } from 'config';
-import { INIT_STORE } from 'constantFactory';
+import {
+  INIT_STORE,
+  READ,
+} from 'constantFactory';
 import {
   InitStoreAction,
+  ReadEntityAction,
 } from 'actionsCreatorFactory';
+import { formatEntity } from 'crudEntity';
 
 import {
   CrudState,
@@ -26,6 +31,11 @@ export default function crudReducerFactory(
     {
       [INIT_STORE(ENTITY)](state: CrudState, action: InitStoreAction): CrudState {
         return state.set('bootTime', action.payload.now);
+      },
+
+      [READ(ENTITY).FINISH](state: CrudState, action: ReadEntityAction): CrudState {
+        return state
+          .mergeIn(['value'], formatEntity(action.payload));
       },
 
       ...upgradedReducers,

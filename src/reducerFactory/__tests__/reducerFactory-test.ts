@@ -1,5 +1,8 @@
 import { Reducer } from 'redux';
-import { INIT_STORE } from 'constantFactory';
+import {
+  INIT_STORE,
+  READ,
+} from 'constantFactory';
 
 import { CrudState } from '../interfaces';
 import crudReducerFactory from '../reducerFactory';
@@ -26,7 +29,6 @@ describe('Crud Reducer Factory', () => {
     const reducer = crudReducerFactory(ENTITY, initialState);
     const state = reducer(<any>undefined, <any>undefined);
 
-    expect(state.get('totalCount')).toEqual(0);
     expect(state.get('value').toJS()).toEqual({});
     expect(state.get('myPadawan')).toEqual('Anakin');
   });
@@ -65,6 +67,25 @@ describe('Crud Reducer Factory', () => {
       const state = reducer(<any>undefined, action);
 
       expect(state.get('bootTime')).toEqual(now);
+    });
+
+    it('reads an entity', () => {
+      const action = {
+        payload: {
+          hash: '1234',
+          name: 'Yoda',
+        },
+        type: READ(ENTITY).FINISH,
+      };
+
+      const state = reducer(<any>undefined, action);
+
+      expect(state.get('value').toJS()).toEqual({
+        1234: {
+          hash: '1234',
+          name: 'Yoda',
+        },
+      });
     });
   });
 });

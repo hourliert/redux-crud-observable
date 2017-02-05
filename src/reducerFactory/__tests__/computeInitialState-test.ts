@@ -11,7 +11,6 @@ describe('Compute Initial Crud State', () => {
   it('computes the initial crud state', () => {
     const computedState = computeInitialState(initialState);
 
-    expect(computedState.get('totalCount')).toEqual(0);
     expect(computedState.get('value').toJS()).toEqual({});
   });
 
@@ -20,7 +19,6 @@ describe('Compute Initial Crud State', () => {
       myMaster: 'yoda',
     });
 
-    expect(computedState.get('totalCount')).toEqual(0);
     expect(computedState.get('value').toJS()).toEqual({});
     expect(computedState.get('myMaster')).toEqual('yoda');
   });
