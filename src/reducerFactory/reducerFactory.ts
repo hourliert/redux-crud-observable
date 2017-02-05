@@ -1,7 +1,18 @@
-// import { reducerFactory } from 'redux-rac-utils';
+import { Reducer } from 'redux';
+import { reducerFactory } from 'redux-rac-utils';
 
-export default function crudReducerFactory(ENTITY: string): any {
-  return {
-    ENTITY,
-  };
+import { CrudState } from './interfaces';
+
+import computeInitialState from './computeInitialState';
+
+export default function crudReducerFactory(
+  ENTITY: string,
+  initialState?: any,
+): Reducer<CrudState> {
+  if (!ENTITY) throw new Error('ENTITY is missing');
+
+  return reducerFactory<CrudState>(
+    computeInitialState(initialState),
+    {},
+  );
 }
