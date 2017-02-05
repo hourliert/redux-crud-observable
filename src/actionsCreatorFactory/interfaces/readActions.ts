@@ -4,3 +4,7 @@ import { IEntity } from 'crudEntity';
 export interface IReadEntityAction extends Action {
   payload: IEntity;
 }
+
+export interface IReadEntitiesBatchAction extends Action {
+  payload: IEntity[];
+}

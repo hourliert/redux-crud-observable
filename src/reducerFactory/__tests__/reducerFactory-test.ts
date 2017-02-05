@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import {
   INIT_STORE,
   READ,
+  READ_BATCH,
 } from 'constantFactory';
 
 import { CrudState } from '../interfaces';
@@ -84,6 +85,35 @@ describe('Crud Reducer Factory', () => {
         1234: {
           hash: '1234',
           name: 'Yoda',
+        },
+      });
+    });
+
+    it('reads a batch of entities', () => {
+      const action = {
+        payload: [
+          {
+            hash: '1234',
+            name: 'Yoda',
+          },
+          {
+            hash: '5678',
+            name: 'Obi Wan',
+          },
+        ],
+        type: READ_BATCH(ENTITY).FINISH,
+      };
+
+      const state = reducer(<any>undefined, action);
+
+      expect(state.get('value').toJS()).toEqual({
+        1234: {
+          hash: '1234',
+          name: 'Yoda',
+        },
+        5678: {
+          hash: '5678',
+          name: 'Obi Wan',
         },
       });
     });
