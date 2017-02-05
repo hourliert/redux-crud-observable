@@ -1,22 +1,30 @@
+import { initialState } from 'config';
+
 import computeInitialState from '../computeInitialState';
 
 describe('Compute Initial Crud State', () => {
-  it('computes the initial crud state', () => {
-    const initialState = computeInitialState();
-
-    expect(initialState.get('totalCount')).toEqual(0);
-    expect(initialState.get('value').toJS()).toEqual({});
+  it('throws an error if the function has invalid paramters', () => {
+    expect(() => computeInitialState(<any>undefined))
+      .toThrowError('Missing initialCrudState');
   });
-});
 
-it('computes the initial crud state and upgrade it', () => {
-    const initialState = computeInitialState({
+  it('computes the initial crud state', () => {
+    const computedState = computeInitialState(initialState);
+
+    expect(computedState.get('totalCount')).toEqual(0);
+    expect(computedState.get('value').toJS()).toEqual({});
+  });
+
+  it('upgrades the initial state', () => {
+    const computedState = computeInitialState(initialState, {
       myMaster: 'yoda',
     });
 
-    expect(initialState.get('totalCount')).toEqual(0);
-    expect(initialState.get('value').toJS()).toEqual({});
-    expect(initialState.get('myMaster')).toEqual('yoda');
+    expect(computedState.get('totalCount')).toEqual(0);
+    expect(computedState.get('value').toJS()).toEqual({});
+    expect(computedState.get('myMaster')).toEqual('yoda');
   });
+});
+
 
 
