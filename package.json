@@ -51,6 +51,10 @@
     }
   },
   "dependencies": {
+    "@types/debug": "0.0.29",
+    "@types/qs": "^6.2.30",
+    "debug": "^2.6.0",
+    "qs": "^6.3.0",
     "redux-rac-utils": "^1.0.1"
   },
   "devDependencies": {
