@@ -4,6 +4,7 @@
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
@@ -29,18 +30,12 @@
     "url": "https://github.com/hourliert/redux-crud-observable/issues"
   },
   "homepage": "https://github.com/hourliert/redux-crud-observable#readme",
-  "devDependencies": {
-    "@types/jest": "^18.1.1",
-    "jest": "^18.1.0",
-    "ts-jest": "^18.0.2",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.5"
-  },
   "jest": {
     "testPathDirs": [
       "src"
     ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleDirectories": ["node_modules", "src"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -51,5 +46,21 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     }
+  },
+  "dependencies": {
+    "redux-rac-utils": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^18.1.1",
+    "immutable": "^3.8.1",
+    "jest": "^18.1.0",
+    "redux": "^3.6.0",
+    "ts-jest": "^18.0.2",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5"
+  },
+  "peerDependencies": {
+    "immutable": "^3.8.1",
+    "redux": "^3.6.0"
   }
 }
