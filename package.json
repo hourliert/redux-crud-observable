@@ -1,6 +1,6 @@
 {
   "name": "redux-crud-observable",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -35,7 +35,10 @@
       "src"
     ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleDirectories": ["node_modules", "src"],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
