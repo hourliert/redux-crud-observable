@@ -1,15 +1,17 @@
 import { Reducer } from 'redux';
 import {
   INIT_STORE,
+  CREATE,
   READ,
   READ_BATCH,
+  READ_LIST,
 } from 'constantFactory';
 
 import { CrudState } from '../interfaces';
 import crudReducerFactory from '../reducerFactory';
 
 describe('Crud Reducer Factory', () => {
-  const ENTITY = 'NINJA';
+  const ENTITY = 'JEDI';
 
   it('throws an error if the factory has invalid arguments', () => {
     expect(() => crudReducerFactory(<any>undefined))
@@ -53,71 +55,88 @@ describe('Crud Reducer Factory', () => {
 
   describe('with a CRUD reducer', () => {
     let reducer: Reducer<CrudState>;
+    const yoda = {
+      hash: '1234',
+      name: 'Yoda',
+    };
+    const obiWan = {
+      hash: '5678',
+      name: 'Obi Wan',
+    };
+    const jedis = [yoda, obiWan];
 
     beforeEach(() => {
       reducer = crudReducerFactory(ENTITY);
     });
 
-    it('inits the reducer store', () => {
-      const now = new Date();
-      const action = {
-        payload: { now },
-        type: INIT_STORE(ENTITY),
-      };
+    describe('STORE', () => {
+      it('inits the reducer store', () => {
+        const now = new Date();
+        const action = {
+          payload: { now },
+          type: INIT_STORE(ENTITY),
+        };
 
-      const state = reducer(<any>undefined, action);
+        const state = reducer(<any>undefined, action);
 
-      expect(state.get('bootTime')).toEqual(now);
-    });
-
-    it('reads an entity', () => {
-      const action = {
-        payload: {
-          hash: '1234',
-          name: 'Yoda',
-        },
-        type: READ(ENTITY).FINISH,
-      };
-
-      const state = reducer(<any>undefined, action);
-
-      expect(state.get('value').toJS()).toEqual({
-        1234: {
-          hash: '1234',
-          name: 'Yoda',
-        },
+        expect(state.get('bootTime')).toEqual(now);
       });
     });
 
-    it('reads a batch of entities', () => {
-      const action = {
-        payload: [
-          {
-            hash: '1234',
-            name: 'Yoda',
-          },
-          {
-            hash: '5678',
-            name: 'Obi Wan',
-          },
-        ],
-        type: READ_BATCH(ENTITY).FINISH,
-      };
+    describe('CREATE', () => {
+      it('creates an entity', () => {
+        const action = {
+          payload: yoda,
+          type: CREATE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
 
-      const state = reducer(<any>undefined, action);
+        expect(state.get('value').toJS()).toEqual({
+          1234: yoda,
+        });
+      });
+    });
 
-      expect(state.get('value').toJS()).toEqual({
-        1234: {
-          hash: '1234',
-          name: 'Yoda',
-        },
-        5678: {
-          hash: '5678',
-          name: 'Obi Wan',
-        },
+    describe('READ', () => {
+      it('reads an entity', () => {
+        const action = {
+          payload: yoda,
+          type: READ(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state.get('value').toJS()).toEqual({
+          1234: yoda,
+        });
+      });
+
+      it('reads a batch of entities', () => {
+        const action = {
+          payload: jedis,
+          type: READ_BATCH(ENTITY).FINISH,
+        };
+
+        const state = reducer(<any>undefined, action);
+
+        expect(state.get('value').toJS()).toEqual({
+          1234: yoda,
+          5678: obiWan,
+        });
+      });
+
+      it('reads a list of entities', () => {
+        const action = {
+          payload: jedis,
+          type: READ_LIST(ENTITY).FINISH,
+        };
+
+        const state = reducer(<any>undefined, action);
+
+        expect(state.get('value').toJS()).toEqual({
+          1234: yoda,
+          5678: obiWan,
+        });
       });
     });
   });
 });
-
-

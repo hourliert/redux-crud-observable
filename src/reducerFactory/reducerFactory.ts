@@ -5,6 +5,7 @@ import { initialState } from 'config';
 import { CrudState } from './interfaces';
 import computeInitialState from './computeInitialState';
 import storeHandlersFactory from './storeHandlersFactory';
+import createHandlersFactory from './createHandlersFactory';
 import readHandlersFactory from './readHandlersFactory';
 
 export default function crudReducerFactory(
@@ -21,6 +22,7 @@ export default function crudReducerFactory(
     ),
     {
       ...storeHandlersFactory(ENTITY),
+      ...createHandlersFactory(ENTITY),
       ...readHandlersFactory(ENTITY),
 
       ...upgradedReducers,

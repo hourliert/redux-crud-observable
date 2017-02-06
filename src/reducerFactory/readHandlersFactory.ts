@@ -1,8 +1,8 @@
 import { ReducersMapObject } from 'redux';
 
-import { READ, READ_BATCH } from 'constantFactory';
+import { READ, READ_BATCH, READ_LIST } from 'constantFactory';
 import { formatEntity, formatEntities } from 'crudEntity';
-import { IReadEntityAction, IReadEntitiesBatchAction } from 'actionsCreatorFactory';
+import { IReadEntityAction, IReadEntitiesBatchAction, IReadEntitiesListAction } from 'actionsCreatorFactory';
 
 import { CrudState } from './interfaces';
 
@@ -16,6 +16,11 @@ export default function readHandlersFactory(ENTITY: string): ReducersMapObject {
     },
 
     [READ_BATCH(ENTITY).FINISH](state: CrudState, action: IReadEntitiesBatchAction): CrudState {
+      return state
+        .mergeIn(['value'], formatEntities(action.payload));
+    },
+
+    [READ_LIST(ENTITY).FINISH](state: CrudState, action: IReadEntitiesListAction): CrudState {
       return state
         .mergeIn(['value'], formatEntities(action.payload));
     },

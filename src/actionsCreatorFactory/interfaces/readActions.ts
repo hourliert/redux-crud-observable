@@ -8,3 +8,7 @@ export interface IReadEntityAction extends Action {
 export interface IReadEntitiesBatchAction extends Action {
   payload: IEntity[];
 }
+
+export interface IReadEntitiesListAction extends Action {
+  payload: IEntity[];
+}
