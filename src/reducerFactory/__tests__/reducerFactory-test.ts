@@ -5,6 +5,9 @@ import {
   READ,
   READ_BATCH,
   READ_LIST,
+  UPDATE,
+  DELETE,
+  DELETE_BATCH,
 } from 'constantFactory';
 
 import { CrudState } from '../interfaces';
@@ -63,10 +66,18 @@ describe('Crud Reducer Factory', () => {
       hash: '5678',
       name: 'Obi Wan',
     };
+    const anakin = {
+      hash: '9012',
+      name: 'Anakin',
+    };
     const jedis = [yoda, obiWan];
 
     beforeEach(() => {
-      reducer = crudReducerFactory(ENTITY);
+      reducer = crudReducerFactory(ENTITY, {
+        value: {
+          9012: anakin,
+        },
+      });
     });
 
     describe('STORE', () => {
@@ -76,7 +87,6 @@ describe('Crud Reducer Factory', () => {
           payload: { now },
           type: INIT_STORE(ENTITY),
         };
-
         const state = reducer(<any>undefined, action);
 
         expect(state.get('bootTime')).toEqual(now);
@@ -91,9 +101,7 @@ describe('Crud Reducer Factory', () => {
         };
         const state = reducer(<any>undefined, action);
 
-        expect(state.get('value').toJS()).toEqual({
-          1234: yoda,
-        });
+        expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
       });
     });
 
@@ -105,9 +113,7 @@ describe('Crud Reducer Factory', () => {
         };
         const state = reducer(<any>undefined, action);
 
-        expect(state.get('value').toJS()).toEqual({
-          1234: yoda,
-        });
+        expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
       });
 
       it('reads a batch of entities', () => {
@@ -115,13 +121,10 @@ describe('Crud Reducer Factory', () => {
           payload: jedis,
           type: READ_BATCH(ENTITY).FINISH,
         };
-
         const state = reducer(<any>undefined, action);
 
-        expect(state.get('value').toJS()).toEqual({
-          1234: yoda,
-          5678: obiWan,
-        });
+        expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
+        expect(state.getIn(['value', '5678']).toJS()).toEqual(obiWan);
       });
 
       it('reads a list of entities', () => {
@@ -129,13 +132,48 @@ describe('Crud Reducer Factory', () => {
           payload: jedis,
           type: READ_LIST(ENTITY).FINISH,
         };
-
         const state = reducer(<any>undefined, action);
 
-        expect(state.get('value').toJS()).toEqual({
-          1234: yoda,
-          5678: obiWan,
-        });
+        expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
+        expect(state.getIn(['value', '5678']).toJS()).toEqual(obiWan);
+      });
+    });
+
+    describe('UPDATE', () => {
+      it('updates an entity', () => {
+        const darkVador = {
+          hash: '9012',
+          name: 'Dark Vador',
+        };
+        const action = {
+          payload: darkVador,
+          type: UPDATE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state.getIn(['value', '9012']).toJS()).toEqual(darkVador);
+      });
+    });
+
+    describe('DELETE', () => {
+      it('deletes an entity', () => {
+        const action = {
+          payload: anakin.hash,
+          type: DELETE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state.hasIn(['value', '9012'])).toBeFalsy();
+      });
+
+      it('deletes a batch of entities', () => {
+        const action = {
+          payload: [anakin.hash],
+          type: DELETE_BATCH(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state.hasIn(['value', '9012'])).toBeFalsy();
       });
     });
   });

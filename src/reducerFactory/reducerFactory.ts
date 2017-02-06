@@ -7,6 +7,8 @@ import computeInitialState from './computeInitialState';
 import storeHandlersFactory from './storeHandlersFactory';
 import createHandlersFactory from './createHandlersFactory';
 import readHandlersFactory from './readHandlersFactory';
+import updateHandlersFactory from './updateHandlersFactory';
+import deleteHandlersFactory from './deleteHandlersFactory';
 
 export default function crudReducerFactory(
   ENTITY: string,
@@ -24,6 +26,8 @@ export default function crudReducerFactory(
       ...storeHandlersFactory(ENTITY),
       ...createHandlersFactory(ENTITY),
       ...readHandlersFactory(ENTITY),
+      ...updateHandlersFactory(ENTITY),
+      ...deleteHandlersFactory(ENTITY),
 
       ...upgradedReducers,
     },
