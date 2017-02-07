@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "@reactivex/rxjs": "^5.1.0",
     "@types/debug": "0.0.29",
     "@types/qs": "^6.2.30",
     "debug": "^2.6.0",
@@ -62,12 +63,14 @@
     "immutable": "^3.8.1",
     "jest": "^18.1.0",
     "redux": "^3.6.0",
+    "rxjs": "^5.1.0",
     "ts-jest": "^18.0.2",
     "tslint": "^4.4.2",
     "typescript": "^2.1.5"
   },
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "rxjs": "^5.1.0"
   }
 }

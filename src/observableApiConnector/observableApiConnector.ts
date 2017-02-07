@@ -1,17 +1,22 @@
+import { Observable, AjaxResponse, AjaxError } from 'rxjs';
+// import { ajax } from 'rxjs/observable/dom/ajax';
 import * as qs from 'qs';
+import { ApiError, IApiError } from 'errors';
 
 import {
-  IApiUrlParamters,
-  IParametrizedApiUrlParamters,
+  IApiUrlParams,
+  IParametrizedApiUrlParams,
+  IHeadersParams,
+  IHeadersMap,
+  IFormatAjaxStreamParams,
 } from './interfaces';
 
 function computeCompleteUrl({
-  apiProto = 'http',
   baseUrl = '/',
   version = '',
   route = '',
-}: IApiUrlParamters = {}): string {
-  return `${apiProto}://${baseUrl}${version}${route}`;
+}: IApiUrlParams = {}): string {
+  return `${baseUrl}${version}${route}`;
 }
 
 function computeParametrizedUrl({
@@ -21,7 +26,7 @@ function computeParametrizedUrl({
   route,
   id = '',
   queryParams = {},
-}: IParametrizedApiUrlParamters = {}): string {
+}: IParametrizedApiUrlParams = {}): string {
   const uri = `${
     computeCompleteUrl({ baseUrl, version, route })
   }/${
@@ -36,3 +41,52 @@ function computeParametrizedUrl({
 
   return url;
 }
+
+function computeHeaders(params: IHeadersParams): IHeadersMap {
+  return {
+    Authorization: `Bearer ${params.token}`,
+    ...(params.json ? { 'Content-Type': 'application/json' } : {}),
+  };
+}
+
+function formatResponse(ajaxResponse: AjaxResponse): any {
+  return ajaxResponse.response;
+}
+
+function formatError(ajaxError: AjaxError): IApiError {
+  const error = new ApiError(ajaxError.message);
+
+  if (ajaxError.xhr) {
+    error.data = ajaxError.xhr.response;
+    error.status = ajaxError.xhr.status;
+  }
+
+  return error;
+}
+
+function formatAjaxStream(params: IFormatAjaxStreamParams): Observable<any> {
+  if (!params.config) throw new Error('Missing config parameter');
+
+  return params.stream$
+    .map(value => formatResponse(value))
+    // .map(value => (params.config.isList ? addRequestedAtToList : addRequestedAtTo)(value))
+    .catch(error => Observable.throw(formatError(error)));
+}
+
+console.log(computeParametrizedUrl, computeHeaders, formatAjaxStream);
+
+// export function fetchEntity({
+//   id,
+//   queryParams,
+//   config: { apiProto, baseUrl, version, route, token, json } = {},
+// }: IFetchEntityParams = {}) {
+//   return formatAjaxStream(
+//     ajax({
+//       crossDomain: true,
+//       headers: computeHeaders({ token, json }),
+//       method: 'GET',
+//       responseType: 'json',
+//       url: computeParametrizedUrl({ apiProto, baseUrl, version, route, id, queryParams }),
+//     }),
+//   );
+// }
