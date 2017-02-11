@@ -8,7 +8,7 @@ export interface IApiUrlParams {
 }
 
 export interface IParametrizedApiUrlParams extends IApiUrlParams {
-  id?: string;
+  id?: number|string;
   queryParams?: Object;
 }
 
