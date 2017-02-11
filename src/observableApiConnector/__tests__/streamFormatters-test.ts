@@ -77,8 +77,8 @@ describe('streamFormatters', () => {
         {
           id: '6',
           name: 'Obi Wan',
-        }
-      ]
+        },
+      ],
     };
 
     const params = {
