@@ -38,9 +38,11 @@ export function formatError(ajaxError: AjaxError): IApiError {
 
 export function formatAjaxStream(params: IFormatAjaxStreamParams): Observable<any> {
   if (!params.config) throw new Error('Missing config parameter');
+  if (!params.stream$) throw new Error('Missing stream$ parameter');
 
   return params.stream$
     .map(value => formatResponse(value))
+    // todo: consider if this is a good practice to keep that here
     .map(value => (params.config.isList ? addTimestampToList : addTimestampTo)(value))
     .catch(error => Observable.throw(formatError(error)));
 }
