@@ -7,12 +7,12 @@ import {
   IHeadersMap,
 } from './interfaces';
 
-export function computeCompleteUrl({
-  apiProto = 'https',
-  baseUrl = '/',
-  version = '',
-  route = '',
-}: IApiUrlParams = {}): string {
+export function computeCompleteUrl({ apiProto, baseUrl, version, route }: IApiUrlParams = {
+  apiProto: 'https',
+  baseUrl: 'www.example.com',
+  route: '/',
+  version: '/v1',
+}): string {
   const uri = `${baseUrl}${version}${route}`
     .replace(/(\/)(?=\1)/g, ''); // delete consecutive /;
 
@@ -20,28 +20,30 @@ export function computeCompleteUrl({
 }
 
 export function computeParametrizedUrl({
-  apiProto,
-  baseUrl,
-  version,
-  route,
-  id = '',
-  queryParams = {},
-}: IParametrizedApiUrlParams = {}): string {
-  const url = `${
-    computeCompleteUrl({ apiProto, baseUrl, version, route })
-  }/${
-    id.toString()
-  }/?${
-    qs.stringify(queryParams)
-  }`
-    .replace(/(\?)*$/g, ''); // delete trailing ?
+  id,
+  queryParams,
+  ...apiUrlParams,
+}: IParametrizedApiUrlParams): string {
+  let url = `${
+    computeCompleteUrl(apiUrlParams)
+  }`;
+
+  if (id) {
+    url = url.concat(`/${id.toString()}`);
+  }
+
+  if (queryParams) {
+    url = url.concat(`/?${qs.stringify(queryParams)}`);
+  }
+
+  url = url.replace(/(\?)*$/g, ''); // delete trailing ?
 
   return url;
 }
 
 export function computeHeaders(params: IHeadersParams): IHeadersMap {
   return {
-    Authorization: `Bearer ${params.token}`,
+    ...(params.token ? { Authorization: `${params.token}` } : {}),
     ...(params.json ? { 'Content-Type': 'application/json' } : {}),
   };
 }

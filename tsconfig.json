@@ -17,7 +17,12 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "lib": [
+      "dom",
+      "es2015",
+      "scripthost"
+    ]
   },
   "exclude": [
     "node_modules",

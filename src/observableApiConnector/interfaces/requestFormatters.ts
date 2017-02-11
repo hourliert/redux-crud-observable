@@ -1,8 +1,10 @@
+export type ApiProto = 'http' | 'https';
+
 export interface IApiUrlParams {
-  apiProto?: string;
-  baseUrl?: string;
-  version?: string;
-  route?: string;
+  apiProto: ApiProto;
+  baseUrl: string;
+  version: string;
+  route: string;
 }
 
 export interface IParametrizedApiUrlParams extends IApiUrlParams {
