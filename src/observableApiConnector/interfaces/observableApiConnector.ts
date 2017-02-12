@@ -5,6 +5,12 @@ export interface IRequestParams {
   config: IApiConfig;
 }
 
-export interface IFetchEntityParams extends IRequestParams {
+export interface IAjaxStreamParams extends ICrudActions {
+  method: string;
+  responseType?: string;
+}
+
+export interface ICrudActions extends IRequestParams {
   id?: number|string;
+  body?: any;
 }
