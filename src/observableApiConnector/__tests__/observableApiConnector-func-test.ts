@@ -10,21 +10,17 @@ describe('functionnal observableApiConnector', () => {
       reqheaders: {
         'Authorization': 'Bearer 1234',
       },
-    })
-    .get('/v1/jedis/5/?hasForce=true')
-    .reply(200, {
-      id: 5,
-      name: 'Yoda',
-    }, {
-     'Content-Type': 'application/json',
     });
   });
 
-  afterEach(() => {
-    nock.restore();
-  });
-
   it('fetches an entity', async () => {
+    mockServer
+      .get('/v1/jedis/5/?hasForce=true')
+      .reply(200, {
+        id: 5,
+        name: 'Yoda',
+      });
+
     const stream$ = fetchEntity({
       config: {
         apiProto: 'https',
@@ -41,14 +37,23 @@ describe('functionnal observableApiConnector', () => {
     try {
       const res = await stream$.toPromise();
 
-      expect(res.id).toEqual(5);
-      expect(res.name).toEqual('Yoda');
+      expect(res).toEqual({
+        id: 5,
+        name: 'Yoda',
+      });
     } catch (e) {
-      throw new Error(`The request hasn't reached the mock server`);
+      throw e;
     }
   });
 
   it('fails to fetch an entity', async () => {
+    mockServer
+      .get('/v1/jedis/5/?hasForce=true')
+      .reply(200, {
+        id: 5,
+        name: 'Yoda',
+      });
+
     const stream$ = fetchEntity({
       config: {
         apiProto: 'https',
@@ -68,6 +73,53 @@ describe('functionnal observableApiConnector', () => {
       throw new Error(`The request has reached the mock server and shouldn't have`);
     } catch (e) {
       expect(true).toBeTruthy();
+    }
+  });
+
+  it('fetches a list of entities', async () => {
+    mockServer
+      .get('/v1/jedis')
+      .reply(200, {
+        member: [
+          {
+            id: 5,
+            name: 'Yoda',
+          },
+          {
+            id: 42,
+            name: 'Obi Wan',
+          },
+        ],
+      });
+
+    const stream$ = fetchEntity({
+      config: {
+        apiProto: 'https',
+        baseUrl: 'api.starwars.galaxy',
+        json: false,
+        route: '/jedis',
+        token: 'Bearer 1234',
+        version: '/v1',
+      },
+    });
+
+    try {
+      const res = await stream$.toPromise();
+
+      expect(res).toEqual({
+        member: [
+          {
+            id: 5,
+            name: 'Yoda',
+          },
+          {
+            id: 42,
+            name: 'Obi Wan',
+          },
+        ],
+      });
+    } catch (e) {
+      throw e;
     }
   });
 });
