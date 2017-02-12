@@ -43,7 +43,6 @@ describe('functionnal observableApiConnector', () => {
 
       expect(res.id).toEqual(5);
       expect(res.name).toEqual('Yoda');
-      expect(res.requestedAt).toBeInstanceOf(Date);
     } catch (e) {
       throw new Error(`The request hasn't reached the mock server`);
     }

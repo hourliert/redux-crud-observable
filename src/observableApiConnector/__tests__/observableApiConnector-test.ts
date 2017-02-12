@@ -45,9 +45,6 @@ describe('observableApiConnector', () => {
       url: undefined,
     });
 
-    expect((<jest.Mock<any>>formatAjaxStream).mock.calls[0][0]).toEqual({
-      config: { isList: false },
-      stream: undefined,
-    });
+    expect((<jest.Mock<any>>formatAjaxStream).mock.calls[0][0]).toEqual(undefined);
   });
 });

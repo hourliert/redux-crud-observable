@@ -4,7 +4,4 @@ export interface IFormatAjaxStreamConfig {
   isList?: boolean;
 }
 
-export interface IFormatAjaxStreamParams {
-  stream$: Observable<AjaxResponse>;
-  config: IFormatAjaxStreamConfig;
-}
+export interface IFormatAjaxStreamParams extends Observable<AjaxResponse> {}

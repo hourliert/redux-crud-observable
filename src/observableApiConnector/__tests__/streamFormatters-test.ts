@@ -28,16 +28,6 @@ describe('streamFormatters', () => {
     expect(apiError.message).toEqual('Cannot find this jedi');
   });
 
-  it('formats an ajax stream without config', () => {
-    expect(() => formatAjaxStream(<any>{}))
-      .toThrowError('Missing config parameter');
-  });
-
-  it('formats an ajax stream without stream$', () => {
-    expect(() => formatAjaxStream(<any>{ config: { isList: true } }))
-      .toThrowError('Missing stream$ parameter');
-  });
-
   it('formats an ajax stream of one value', async () => {
     const ajaxResponse = new AjaxResponse(
       new Event('ajaxResponse'),
@@ -49,17 +39,11 @@ describe('streamFormatters', () => {
       name: 'Yoda',
     };
 
-    const params = {
-      config: { isList: false },
-      stream$: Observable.of(ajaxResponse),
-    };
-
-    const r = await formatAjaxStream(params)
+    const r = await formatAjaxStream(Observable.of(ajaxResponse))
       .toPromise();
 
     expect(r.id).toEqual('5');
     expect(r.name).toEqual('Yoda');
-    expect(r.requestedAt).toBeInstanceOf(Date);
   });
 
   it('formats an ajax stream of a list', async () => {
@@ -81,20 +65,13 @@ describe('streamFormatters', () => {
       ],
     };
 
-    const params = {
-      config: { isList: true },
-      stream$: Observable.of(ajaxResponse),
-    };
-
-    const r = await formatAjaxStream(params)
+    const r = await formatAjaxStream(Observable.of(ajaxResponse))
       .toPromise();
 
     expect(r.member[0].id).toEqual('5');
     expect(r.member[0].name).toEqual('Yoda');
-    expect(r.member[0].requestedAt).toBeInstanceOf(Date);
     expect(r.member[1].id).toEqual('6');
     expect(r.member[1].name).toEqual('Obi Wan');
-    expect(r.member[1].requestedAt).toBeInstanceOf(Date);
   });
 
   it('formats an ajax stream throwing an error', async () => {
@@ -104,13 +81,8 @@ describe('streamFormatters', () => {
       {},
     );
 
-    const params = {
-      config: { isList: false },
-      stream$: Observable.throw(ajaxError),
-    };
-
     try {
-      await formatAjaxStream(params)
+      await formatAjaxStream(Observable.throw(ajaxError))
       .toPromise();
     } catch (e) {
       expect(e).toBeInstanceOf(Error);
