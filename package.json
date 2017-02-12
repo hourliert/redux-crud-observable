@@ -22,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hourliert/redux-crud-observable.git"
+    "url": "git+https://github.com/FoodMeUp/redux-crud-observable.git"
   },
-  "author": "Thomas Hourlier <hourliert@gmail.com> (https://github.com/hourliert)",
+  "author": "Thomas Hourlier <hourliert@gmail.com> (https://github.com/FoodMeUp)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hourliert/redux-crud-observable/issues"
+    "url": "https://github.com/FoodMeUp/redux-crud-observable/issues"
   },
-  "homepage": "https://github.com/hourliert/redux-crud-observable#readme",
+  "homepage": "https://github.com/FoodMeUp/redux-crud-observable#readme",
   "jest": {
     "testPathDirs": [
       "src"
