@@ -47,4 +47,41 @@ describe('observableApiConnector', () => {
 
     expect((<jest.Mock<any>>formatAjaxStream).mock.calls[0][0]).toEqual(undefined);
   });
+
+  it('fetches a list of entities', () => {
+    fetchEntity({
+      config: {
+        apiProto: 'https',
+        baseUrl: 'api.starwars.galaxy',
+        json: false,
+        route: '/jedis',
+        token: 'Bearer 1234',
+        version: '/v1',
+      },
+      queryParams: { hasForce: true },
+    });
+
+    expect((<jest.Mock<any>>computeHeaders).mock.calls[1][0]).toEqual({
+      json: false,
+      token: 'Bearer 1234',
+    });
+
+    expect((<jest.Mock<any>>computeParametrizedUrl).mock.calls[1][0]).toEqual({
+      apiProto: 'https',
+      baseUrl: 'api.starwars.galaxy',
+      queryParams: { hasForce: true },
+      route: '/jedis',
+      version: '/v1',
+    });
+
+    expect((<jest.Mock<any>><any>ajax).mock.calls[1][0]).toEqual({
+      crossDomain: true,
+      headers: undefined,
+      method: 'GET',
+      responseType: 'json',
+      url: undefined,
+    });
+
+    expect((<jest.Mock<any>>formatAjaxStream).mock.calls[1][0]).toEqual(undefined);
+  });
 });

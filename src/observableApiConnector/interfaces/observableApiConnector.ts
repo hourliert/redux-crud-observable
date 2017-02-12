@@ -6,7 +6,5 @@ export interface IRequestParams {
 }
 
 export interface IFetchEntityParams extends IRequestParams {
-  id: number|string;
+  id?: number|string;
 }
-
-export interface IFetchEntitiesListParams extends IRequestParams {}
