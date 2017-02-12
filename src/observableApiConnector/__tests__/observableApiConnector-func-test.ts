@@ -5,7 +5,7 @@ import { fetchEntity } from '../observableApiConnector';
 describe('functionnal observableApiConnector', () => {
   let mockServer: nock.Scope;
 
-  beforeAll(() => {
+  beforeEach(() => {
     mockServer = nock('https://api.starwars.galaxy', {
       reqheaders: {
         'Authorization': 'Bearer 1234',
@@ -20,8 +20,8 @@ describe('functionnal observableApiConnector', () => {
     });
   });
 
-  afterAll(() => {
-    mockServer.restore();
+  afterEach(() => {
+    nock.restore();
   });
 
   it('fetches an entity', async () => {
@@ -45,7 +45,7 @@ describe('functionnal observableApiConnector', () => {
       expect(res.name).toEqual('Yoda');
       expect(res.requestedAt).toBeInstanceOf(Date);
     } catch (e) {
-      expect(false).toBeTruthy();
+      throw new Error(`The request hasn't reached the mock server`);
     }
   });
 
@@ -59,14 +59,14 @@ describe('functionnal observableApiConnector', () => {
         token: 'Bearer 1234',
         version: '/v1',
       },
-      id: 4,
+      id: 3,
       queryParams: { hasForce: true },
     });
 
     try {
       await stream$.toPromise();
 
-      expect(false).toBeTruthy();
+      throw new Error(`The request has reached the mock server and shouldn't have`);
     } catch (e) {
       expect(true).toBeTruthy();
     }
