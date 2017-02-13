@@ -49,6 +49,7 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+    "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js",
     "testURL": "https://api.starwars.galaxy"
   },
   "dependencies": {
