@@ -3,12 +3,14 @@ import { Action } from 'redux';
 import { IEntity } from 'crudEntity';
 
 export interface ICreateEntityAction extends Action {
-  payload: IEntity;
+  payload: ICreateEntityPayload;
 }
 
-export interface ICreateActionsCreator {
-  cancelCreateEntity: IActionCreator<any, any>;
-  failCreateEntity: IActionCreator<any, any>;
-  finishCreateEntity: IActionCreator<any, any>;
-  requestCreateEntity: IActionCreator<any, any>;
+export interface ICreateEntityPayload extends IEntity {}
+
+export interface ICreateActionsCreators {
+  cancelCreateEntity: IActionCreator<void, any>;
+  failCreateEntity: IActionCreator<Error, any>;
+  finishCreateEntity: IActionCreator<ICreateEntityPayload, any>;
+  requestCreateEntity: IActionCreator<ICreateEntityPayload, any>;
 }

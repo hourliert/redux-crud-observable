@@ -1,7 +1,7 @@
-import { ICreateActionsCreator } from './interfaces';
+import { ICreateActionsCreators } from './interfaces';
 import createActionsCreatorFactory from './createActionsCreatorFactory';
 
-export default function crudActionsCreatorsFactory(ENTITY: string): ICreateActionsCreator {
+export default function crudActionsCreatorsFactory(ENTITY: string): ICreateActionsCreators {
   return {
     ...createActionsCreatorFactory(ENTITY),
   };
