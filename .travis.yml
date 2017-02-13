@@ -4,6 +4,7 @@ node_js:
 - v7
 before_install: npm install -g codecov
 after_success:
+- rm -rf ./coverage/clover.xml ./coverage/coverage-final.json ./coverage/lcov.info ./coverage/lcov-report
 - codecov -e TRAVIS_NODE_VERSION
 deploy:
   provider: npm
