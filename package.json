@@ -13,7 +13,7 @@
     "test": "npm run test:coverage",
     "test:once": "jest --colors",
     "test:watch": "jest --watch --watchExtensions ts,tsx,js --colors",
-    "test:coverage": "jest --coverage --colors",
+    "test:coverage": "jest --coverage --colors --no-cache --runInBand",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "compile": "npm run compile:es5 & npm run compile:es2015",
     "compile:es5": "tsc -p .",
