@@ -129,7 +129,9 @@ describe('Crud Reducer Factory', () => {
 
       it('reads a list of entities', () => {
         const action = {
-          payload: jedis,
+          payload: {
+            member: jedis,
+          },
           type: READ_LIST(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);
@@ -158,7 +160,7 @@ describe('Crud Reducer Factory', () => {
     describe('DELETE', () => {
       it('deletes an entity', () => {
         const action = {
-          payload: anakin.hash,
+          payload: anakin,
           type: DELETE(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);
@@ -168,7 +170,7 @@ describe('Crud Reducer Factory', () => {
 
       it('deletes a batch of entities', () => {
         const action = {
-          payload: [anakin.hash],
+          payload: [anakin],
           type: DELETE_BATCH(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);

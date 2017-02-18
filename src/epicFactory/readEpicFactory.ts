@@ -2,7 +2,9 @@ import { Observable } from 'rxjs';
 import { ActionsObservable, Epic } from 'redux-observable';
 
 import { fetchEntity } from 'observableApiConnector';
-import { readCrudActionsCreatorFactory } from 'actionsCreatorFactory';
+import {
+  readCrudActionsCreatorFactory,
+} from 'actionsCreatorFactory';
 import {
   READ,
 } from 'constantFactory';

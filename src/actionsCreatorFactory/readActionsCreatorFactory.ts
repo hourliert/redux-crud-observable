@@ -1,7 +1,13 @@
 import { actionsCreatorFactory } from 'redux-rac-utils';
 import { READ, READ_BATCH, READ_LIST } from 'constantFactory';
+import { IEntity, IEntitiesList } from 'crudEntity';
 
-import { IReadEntityPayload, IReadEntitiesPayload, IReadActionsCreators } from './interfaces';
+import {
+  IRequestReadEntityPayload,
+  IRequestReadEntitiesListPayload,
+  IRequestReadEntitiesPayload,
+  IReadActionsCreators,
+} from './interfaces';
 
 export default function readActionsCreatorFactory(ENTITY: string): IReadActionsCreators {
   return {
@@ -13,12 +19,12 @@ export default function readActionsCreatorFactory(ENTITY: string): IReadActionsC
     failReadEntitiesList: actionsCreatorFactory<Error, any>(READ_LIST(ENTITY).FAIL),
     failReadEntity: actionsCreatorFactory<Error, any>(READ(ENTITY).FAIL),
 
-    finishReadBatchEntities: actionsCreatorFactory<IReadEntitiesPayload, any>(READ_BATCH(ENTITY).FINISH),
-    finishReadEntitiesList: actionsCreatorFactory<IReadEntitiesPayload, any>(READ_LIST(ENTITY).FINISH),
-    finishReadEntity: actionsCreatorFactory<IReadEntityPayload, any>(READ(ENTITY).FINISH),
+    finishReadBatchEntities: actionsCreatorFactory<Array<IEntity>, any>(READ_BATCH(ENTITY).FINISH),
+    finishReadEntitiesList: actionsCreatorFactory<IEntitiesList, any>(READ_LIST(ENTITY).FINISH),
+    finishReadEntity: actionsCreatorFactory<IEntity, any>(READ(ENTITY).FINISH),
 
-    requestReadBatchEntities: actionsCreatorFactory<IReadEntitiesPayload, any>(READ_BATCH(ENTITY).REQUEST),
-    requestReadEntitiesList: actionsCreatorFactory<IReadEntitiesPayload, any>(READ_LIST(ENTITY).REQUEST),
-    requestReadEntity: actionsCreatorFactory<IReadEntityPayload, any>(READ(ENTITY).REQUEST),
+    requestReadBatchEntities: actionsCreatorFactory<IRequestReadEntitiesPayload, any>(READ_BATCH(ENTITY).REQUEST),
+    requestReadEntitiesList: actionsCreatorFactory<IRequestReadEntitiesListPayload, any>(READ_LIST(ENTITY).REQUEST),
+    requestReadEntity: actionsCreatorFactory<IRequestReadEntityPayload, any>(READ(ENTITY).REQUEST),
   };
 }
