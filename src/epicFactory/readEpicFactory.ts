@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs';
 import { ActionsObservable, Epic } from 'redux-observable';
 
-import { fetchEntity } from 'observableApiConnector';
+import { readEntity, IApiConfig } from 'observableApiConnector';
+import { IEntity } from 'crudEntity';
 import {
   readCrudActionsCreatorFactory,
+  IRequestReadEntityAction,
 } from 'actionsCreatorFactory';
 import {
   READ,
@@ -11,7 +13,7 @@ import {
 
 import { IFetchEntityEpicParams } from './interfaces';
 
-export default function fetchEpicFactory({
+export default function readEpicFactory({
   entity,
   apiConfig,
 }: IFetchEntityEpicParams): Array<Epic<any, any>> {
@@ -22,16 +24,22 @@ export default function fetchEpicFactory({
 
   const fetchEntityEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
     action$.ofType(READ(entity).REQUEST)
-      .switchMap(({ meta, payload: { api, id, queryParams }}) => (
-        fetchEntity({
-          id,
-          queryParams,
-          config: Object.assign({}, apiConfig, api),
+      .switchMap(({ meta, payload }: IRequestReadEntityAction) => {
+        if (!payload) return Observable.empty();
+
+        const config = payload.api ?
+          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
+          apiConfig;
+
+        return readEntity({
+          config: config,
+          id: payload.id,
+          queryParams: payload.queryParams,
         })
-          .map(res => finishReadEntity(res, meta))
+          .map((res: IEntity) => finishReadEntity(res, meta))
           .takeUntil(action$.ofType(READ(entity).CANCEL))
-          .catch(error => Observable.of(failReadEntity(error, meta)))
-      ))
+          .catch((error: Error) => Observable.of(failReadEntity(error, meta)));
+      })
   );
 
   return [

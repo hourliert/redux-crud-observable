@@ -8,7 +8,7 @@ import { computeHeaders, computeParametrizedUrl } from '../requestFormatters';
 
 import {
   createAjaxStream,
-  fetchEntity,
+  readEntity,
   deleteEntity,
   updateEntity,
   createEntity,
@@ -57,7 +57,7 @@ describe('observableApiConnector', () => {
   });
 
   it('fetchs an entity', () => {
-    fetchEntity({
+    readEntity({
       config: {
         apiProto: 'https',
         baseUrl: 'api.starwars.galaxy',
