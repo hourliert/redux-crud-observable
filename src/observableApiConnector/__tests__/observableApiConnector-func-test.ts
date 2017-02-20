@@ -18,6 +18,10 @@ describe('functionnal observableApiConnector', () => {
     });
   });
 
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   it('fetches an entity', async () => {
     mockServer
       .get('/v1/jedis/5/?hasForce=true')
