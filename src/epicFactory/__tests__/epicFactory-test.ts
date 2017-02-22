@@ -5,9 +5,9 @@ import configureMockStore, { IStore } from 'redux-mock-store';
 import { IApiConfig } from 'observableApiConnector';
 import { readCrudActionsCreatorFactory } from 'actionsCreatorFactory';
 
-import readEpicFactory from '../readEpicFactory';
+import epicFactory from '../epicFactory';
 
-describe('readEpicFactory', () => {
+describe('epicFactory', () => {
   let mockServer: nock.Scope;
   let store: IStore<any>;
 
@@ -41,10 +41,10 @@ describe('readEpicFactory', () => {
         name: 'Yoda',
       });
 
-    const readEpic = readEpicFactory({
+    const readEpic = epicFactory({
       entity,
       apiConfig,
-    })[0];
+    });
 
     const input$ = ActionsObservable.of(requestReadEntity({
       id: 5,

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ActionsObservable, Epic } from 'redux-observable';
+import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 
 import { readEntity, IApiConfig } from 'observableApiConnector';
 import { IEntity } from 'crudEntity';
@@ -11,12 +11,12 @@ import {
   READ,
 } from 'constantFactory';
 
-import { IFetchEntityEpicParams } from './interfaces';
+import { IEpicParams } from './interfaces';
 
 export default function readEpicFactory({
   entity,
   apiConfig,
-}: IFetchEntityEpicParams): Array<Epic<any, any>> {
+}: IEpicParams): Epic<any, any> {
   const {
     finishReadEntity,
     failReadEntity,
@@ -42,7 +42,7 @@ export default function readEpicFactory({
       })
   );
 
-  return [
+  return combineEpics<any, any>(
     fetchEntityEpic,
-  ];
+  );
 }

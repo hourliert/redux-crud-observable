@@ -1,6 +1,6 @@
 import { IApiConfig } from 'observableApiConnector';
 
-export interface IFetchEntityEpicParams {
+export interface IEpicParams {
   entity: string;
   apiConfig: IApiConfig;
 }

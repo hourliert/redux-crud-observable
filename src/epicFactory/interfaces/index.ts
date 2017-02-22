@@ -1,1 +1,1 @@
-export * from './readEpic';
+export * from './epicFactory';
