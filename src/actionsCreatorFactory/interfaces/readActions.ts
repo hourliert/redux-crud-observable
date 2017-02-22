@@ -6,6 +6,8 @@ import {
 } from './crudActions';
 
 export interface IRequestReadEntityAction extends IAction<IRequestReadEntityPayload, any> {}
+export interface IRequestReadEntitiesAction extends IAction<IRequestReadEntitiesPayload, any> {}
+export interface IRequestReadEntitiesListAction extends IAction<IRequestReadEntitiesListPayload, any> {}
 
 export interface IFinishReadEntityAction extends IAction<IEntity, any> {}
 export interface IFinishReadEntitiesBatchAction extends IAction<Array<IEntity>, any> {}
