@@ -87,7 +87,7 @@ export default function readEpicFactory({
               config: config,
               id,
               queryParams: payload.queryParams,
-            }))
+            })),
           )
           .map((res: Array<IEntity>) => finishReadBatchEntities(res, meta))
           .takeUntil(action$.ofType(READ_BATCH(entity).CANCEL))
