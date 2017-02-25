@@ -25,11 +25,13 @@ describe('epicFactory', () => {
     cancelReadEntitiesList,
     cancelReadBatchEntities,
     cancelCreateEntity,
+    cancelUpdateEntity,
 
     requestReadEntity,
     requestReadEntitiesList,
     requestReadBatchEntities,
     requestCreateEntity,
+    requestUpdateEntity,
   } = crudActionsCreatorFactory(entity);
   const mockStore = configureMockStore();
 
@@ -55,7 +57,7 @@ describe('epicFactory', () => {
 
       mockServer
         .post('/v1/jedis')
-        .reply(201, fixture);
+        .reply(200, fixture);
 
       const input$ = ActionsObservable.of(requestCreateEntity({
         body: {
@@ -361,6 +363,93 @@ describe('epicFactory', () => {
           .subscribe((actions: any) => {
             try {
               expect(actions.type).toEqual('FAIL_READ_BATCH_JEDIS');
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+  });
+
+  describe('Update Epic', () => {
+    it('creates a update entity epic', () => {
+      const fixture =  {
+        id: 5,
+        name: 'Yoda',
+      };
+
+      mockServer
+        .put('/v1/jedis/5')
+        .reply(200, fixture);
+
+      const input$ = ActionsObservable.of(requestUpdateEntity({
+        body: {
+          name: 'Yoda',
+        },
+        id: 5,
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            try {
+              expect(actions).toEqual({
+                payload: fixture,
+                type: 'FINISH_UPDATE_JEDI',
+              });
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('cancels a update entity epic', () => {
+      const input$ = ActionsObservable.from([
+        requestUpdateEntity({
+          body: {
+            name: 'Yoda',
+          },
+          id: 5,
+        }),
+        cancelUpdateEntity(),
+      ]);
+
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((res: boolean) => {
+            try {
+              expect(res).toBeTruthy();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('fails to update entity epic', () => {
+      mockServer
+        .put('/v1/jedis/5')
+        .reply(404);
+
+      const input$ = ActionsObservable.of(requestUpdateEntity({
+        body: {
+          name: 'Yoda',
+        },
+        id: 5,
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            try {
+              expect(actions.type).toEqual('FAIL_UPDATE_JEDI');
               resolve();
             } catch (e) {
               reject(e);

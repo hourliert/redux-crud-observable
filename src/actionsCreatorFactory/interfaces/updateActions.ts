@@ -5,9 +5,12 @@ import {
   IRequestCrudActionPayload,
 } from './crudActions';
 
+export interface IRequestUpdateEntityAction extends IAction<IRequestUpdateEntityPayload, any> {}
+
 export interface IFinishUpdateEntityAction extends IAction<IEntity, any> {}
 
 export interface IRequestUpdateEntityPayload extends IRequestCrudActionPayload {
+  id: string|number;
   body: any;
 }
 
