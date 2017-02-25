@@ -35,7 +35,7 @@ export default function readEpicFactory({
     failReadBatchEntities,
   } = readCrudActionsCreatorFactory(entity);
 
-  const fetchEntityEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
+  const readEntityEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
     action$.ofType(READ(entity).REQUEST)
       .switchMap(({ meta, payload }: IRequestReadEntityAction) => {
         if (!payload) return Observable.empty();
@@ -55,7 +55,7 @@ export default function readEpicFactory({
       })
   );
 
-  const fetchEntitiesListEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
+  const readEntitiesListEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
     action$.ofType(READ_LIST(entity).REQUEST)
       .switchMap(({ meta, payload }: IRequestReadEntitiesListAction) => {
         const config = payload && payload.api ?
@@ -72,7 +72,7 @@ export default function readEpicFactory({
       })
   );
 
-  const fetchBatchEntitiesEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
+  const readBatchEntitiesEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
     action$.ofType(READ_BATCH(entity).REQUEST)
       .switchMap(({ meta, payload }: IRequestReadEntitiesAction) => {
         if (!payload) return Observable.empty();
@@ -96,8 +96,8 @@ export default function readEpicFactory({
   );
 
   return combineEpics<any, any>(
-    fetchEntityEpic,
-    fetchEntitiesListEpic,
-    fetchBatchEntitiesEpic,
+    readEntityEpic,
+    readEntitiesListEpic,
+    readBatchEntitiesEpic,
   );
 }

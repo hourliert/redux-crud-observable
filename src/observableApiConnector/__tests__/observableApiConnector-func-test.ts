@@ -22,7 +22,7 @@ describe('functionnal observableApiConnector', () => {
     nock.cleanAll();
   });
 
-  it('fetches an entity', async () => {
+  it('reads an entity', async () => {
     mockServer
       .get('/v1/jedis/5/?hasForce=true')
       .reply(200, {
@@ -55,7 +55,7 @@ describe('functionnal observableApiConnector', () => {
     }
   });
 
-  it('fetches a list of entities', async () => {
+  it('reads a list of entities', async () => {
     mockServer
       .get('/v1/jedis')
       .reply(200, {

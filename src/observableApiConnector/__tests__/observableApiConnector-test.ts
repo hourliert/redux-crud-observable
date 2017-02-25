@@ -56,7 +56,7 @@ describe('observableApiConnector', () => {
     expect((<jest.Mock<any>>formatAjaxStream).mock.calls[0][0]).toEqual(undefined);
   });
 
-  it('fetchs an entity', () => {
+  it('reads an entity', () => {
     readEntity({
       config: {
         apiProto: 'https',

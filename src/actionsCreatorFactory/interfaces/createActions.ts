@@ -5,6 +5,8 @@ import {
   IRequestCrudActionPayload,
 } from './crudActions';
 
+export interface IRequestCreateEntityAction extends IAction<IRequestCreateEntityPayload, any> {}
+
 export interface IFinishCreateEntityAction extends IAction<IEntity, any> {}
 
 export interface IRequestCreateEntityPayload extends IRequestCrudActionPayload {
