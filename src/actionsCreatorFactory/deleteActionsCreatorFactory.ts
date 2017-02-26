@@ -1,7 +1,12 @@
 import { actionsCreatorFactory } from 'redux-rac-utils';
 import { DELETE, DELETE_BATCH } from 'constantFactory';
+import { IEntity } from 'crudEntity';
 
-import { IDeleteEntityPayload, IDeleteEntitiesPayload, IDeleteActionsCreators } from './interfaces';
+import {
+  IRequestDeleteEntityPayload,
+  IRequestDeleteEntitiesPayload,
+  IDeleteActionsCreators,
+} from './interfaces';
 
 export default function deleteActionsCreatorFactory(ENTITY: string): IDeleteActionsCreators {
   return {
@@ -11,10 +16,10 @@ export default function deleteActionsCreatorFactory(ENTITY: string): IDeleteActi
     failDeleteBatchEntities: actionsCreatorFactory<Error, any>(DELETE_BATCH(ENTITY).FAIL),
     failDeleteEntity: actionsCreatorFactory<Error, any>(DELETE(ENTITY).FAIL),
 
-    finishDeleteBatchEntities: actionsCreatorFactory<IDeleteEntitiesPayload, any>(DELETE_BATCH(ENTITY).FINISH),
-    finishDeleteEntity: actionsCreatorFactory<IDeleteEntityPayload, any>(DELETE(ENTITY).FINISH),
+    finishDeleteBatchEntities: actionsCreatorFactory<Array<IEntity>, any>(DELETE_BATCH(ENTITY).FINISH),
+    finishDeleteEntity: actionsCreatorFactory<IEntity, any>(DELETE(ENTITY).FINISH),
 
-    requestDeleteBatchEntities: actionsCreatorFactory<IDeleteEntitiesPayload, any>(DELETE_BATCH(ENTITY).REQUEST),
-    requestDeleteEntity: actionsCreatorFactory<IDeleteEntityPayload, any>(DELETE(ENTITY).REQUEST),
+    requestDeleteBatchEntities: actionsCreatorFactory<IRequestDeleteEntitiesPayload, any>(DELETE_BATCH(ENTITY).REQUEST),
+    requestDeleteEntity: actionsCreatorFactory<IRequestDeleteEntityPayload, any>(DELETE(ENTITY).REQUEST),
   };
 }

@@ -27,7 +27,7 @@ export function createAjaxStream({
   }));
 }
 
-export function fetchEntity(params: ICrudActions): Observable<any> {
+export function readEntity(params: ICrudActions): Observable<any> {
   return createAjaxStream({
     method: 'GET',
     responseType: 'json',

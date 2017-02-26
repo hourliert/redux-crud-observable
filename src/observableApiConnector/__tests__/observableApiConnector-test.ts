@@ -8,7 +8,7 @@ import { computeHeaders, computeParametrizedUrl } from '../requestFormatters';
 
 import {
   createAjaxStream,
-  fetchEntity,
+  readEntity,
   deleteEntity,
   updateEntity,
   createEntity,
@@ -56,8 +56,8 @@ describe('observableApiConnector', () => {
     expect((<jest.Mock<any>>formatAjaxStream).mock.calls[0][0]).toEqual(undefined);
   });
 
-  it('fetchs an entity', () => {
-    fetchEntity({
+  it('reads an entity', () => {
+    readEntity({
       config: {
         apiProto: 'https',
         baseUrl: 'api.starwars.galaxy',

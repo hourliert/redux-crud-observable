@@ -103,9 +103,33 @@ describe('Crud Reducer Factory', () => {
 
         expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
       });
+
+      it('creates an entity without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: CREATE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
+      });
     });
 
     describe('READ', () => {
+      it('reads an entity without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: READ(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
+      });
+
       it('reads an entity', () => {
         const action = {
           payload: yoda,
@@ -114,6 +138,18 @@ describe('Crud Reducer Factory', () => {
         const state = reducer(<any>undefined, action);
 
         expect(state.getIn(['value', '1234']).toJS()).toEqual(yoda);
+      });
+
+      it('reads a batch of entities without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: READ_BATCH(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
       });
 
       it('reads a batch of entities', () => {
@@ -127,9 +163,23 @@ describe('Crud Reducer Factory', () => {
         expect(state.getIn(['value', '5678']).toJS()).toEqual(obiWan);
       });
 
+      it('reads a list of entities without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: READ_LIST(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
+      });
+
       it('reads a list of entities', () => {
         const action = {
-          payload: jedis,
+          payload: {
+            member: jedis,
+          },
           type: READ_LIST(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);
@@ -140,6 +190,18 @@ describe('Crud Reducer Factory', () => {
     });
 
     describe('UPDATE', () => {
+      it('updates an entity without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: UPDATE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
+      });
+
       it('updates an entity', () => {
         const darkVador = {
           hash: '9012',
@@ -156,9 +218,21 @@ describe('Crud Reducer Factory', () => {
     });
 
     describe('DELETE', () => {
+      it('deletes an entity without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: DELETE(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
+      });
+
       it('deletes an entity', () => {
         const action = {
-          payload: anakin.hash,
+          payload: anakin,
           type: DELETE(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);
@@ -168,12 +242,24 @@ describe('Crud Reducer Factory', () => {
 
       it('deletes a batch of entities', () => {
         const action = {
-          payload: [anakin.hash],
+          payload: [anakin],
           type: DELETE_BATCH(ENTITY).FINISH,
         };
         const state = reducer(<any>undefined, action);
 
         expect(state.hasIn(['value', '9012'])).toBeFalsy();
+      });
+
+      it('deletes a batch of entities without a payload', () => {
+        const initialState = reducer(<any>undefined, <any>undefined);
+
+        const action = {
+          payload: undefined,
+          type: DELETE_BATCH(ENTITY).FINISH,
+        };
+        const state = reducer(<any>undefined, action);
+
+        expect(state).toEqual(initialState);
       });
     });
   });

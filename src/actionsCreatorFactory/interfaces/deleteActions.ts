@@ -1,26 +1,32 @@
-import { IActionCreator } from 'redux-rac-utils';
-import { Action } from 'redux';
+import { IActionCreator, IAction } from 'redux-rac-utils';
+import { IEntity } from 'crudEntity';
 
-export interface IDeleteEntityAction extends Action {
-  payload: IDeleteEntityPayload;
+import {
+  IRequestCrudActionPayload,
+} from './crudActions';
+
+export interface IRequestDeleteEntityAction extends IAction<IRequestDeleteEntityPayload, any> {}
+export interface IRequestDeleteEntitiesBatchAction extends IAction<IRequestDeleteEntitiesPayload, any> {}
+
+export interface IFinishDeleteEntityAction extends IAction<IEntity, any> {}
+export interface IFinishDeleteEntitiesBatchAction extends IAction<Array<IEntity>, any> {}
+
+export interface IRequestDeleteEntityPayload extends IRequestCrudActionPayload {
+  id: string|number;
 }
 
-export interface IDeleteEntitiesBatchAction extends Action {
-  payload: IDeleteEntitiesPayload;
+export interface IRequestDeleteEntitiesPayload extends IRequestCrudActionPayload {
+  ids: Array<string|number>;
 }
-
-export type IDeleteEntityPayload = string;
-export interface IDeleteEntitiesPayload extends Array<string> {}
-
 
 export interface IDeleteActionsCreators {
   cancelDeleteEntity: IActionCreator<void, any>;
   failDeleteEntity: IActionCreator<Error, any>;
-  finishDeleteEntity: IActionCreator<IDeleteEntityPayload, any>;
-  requestDeleteEntity: IActionCreator<IDeleteEntityPayload, any>;
+  finishDeleteEntity: IActionCreator<IEntity, any>;
+  requestDeleteEntity: IActionCreator<IRequestDeleteEntityPayload, any>;
 
   cancelDeleteBatchEntities: IActionCreator<void, any>;
   failDeleteBatchEntities: IActionCreator<Error, any>;
-  finishDeleteBatchEntities: IActionCreator<IDeleteEntitiesPayload, any>;
-  requestDeleteBatchEntities: IActionCreator<IDeleteEntitiesPayload, any>;
+  finishDeleteBatchEntities: IActionCreator<Array<IEntity>, any>;
+  requestDeleteBatchEntities: IActionCreator<IRequestDeleteEntitiesPayload, any>;
 }

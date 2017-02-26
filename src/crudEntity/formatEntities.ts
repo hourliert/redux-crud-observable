@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { IEntity, FormattedEntity, FormattedEntities } from './interfaces';
+import { IEntity, IEntitiesList, FormattedEntity, FormattedEntities } from './interfaces';
 
 export function formatEntity(entity: IEntity): FormattedEntity {
   return fromJS({
@@ -8,8 +8,12 @@ export function formatEntity(entity: IEntity): FormattedEntity {
   });
 }
 
-export function formatEntities(entities: IEntity[]): FormattedEntities {
+export function formatEntities(entities: Array<IEntity>): FormattedEntities {
   return entities.reduce((res: FormattedEntity, cur: IEntity) => (
     res.merge(formatEntity(cur))
   ), fromJS({}));
+}
+
+export function formatEntitiesList(entities: IEntitiesList): FormattedEntities {
+  return formatEntities(entities.member);
 }

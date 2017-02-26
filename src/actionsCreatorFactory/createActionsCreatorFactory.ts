@@ -1,13 +1,17 @@
 import { actionsCreatorFactory } from 'redux-rac-utils';
 import { CREATE } from 'constantFactory';
+import { IEntity } from 'crudEntity';
 
-import { ICreateEntityPayload, ICreateActionsCreators } from './interfaces';
+import {
+  IRequestCreateEntityPayload,
+  ICreateActionsCreators,
+} from './interfaces';
 
 export default function createActionsCreatorsFactory(ENTITY: string): ICreateActionsCreators {
   return {
     cancelCreateEntity: actionsCreatorFactory<void, any>(CREATE(ENTITY).CANCEL),
     failCreateEntity: actionsCreatorFactory<Error, any>(CREATE(ENTITY).FAIL),
-    finishCreateEntity: actionsCreatorFactory<ICreateEntityPayload, any>(CREATE(ENTITY).FINISH),
-    requestCreateEntity: actionsCreatorFactory<ICreateEntityPayload, any>(CREATE(ENTITY).REQUEST),
+    finishCreateEntity: actionsCreatorFactory<IEntity, any>(CREATE(ENTITY).FINISH),
+    requestCreateEntity: actionsCreatorFactory<IRequestCreateEntityPayload, any>(CREATE(ENTITY).REQUEST),
   };
 }

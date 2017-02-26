@@ -1,4 +1,4 @@
-import { formatEntity, formatEntities } from '../formatEntities';
+import { formatEntity, formatEntities, formatEntitiesList } from '../formatEntities';
 
 describe('Crud Entities', () => {
   it('formats a crud entity', () => {
@@ -27,6 +27,31 @@ describe('Crud Entities', () => {
     };
 
     const formattedEntities = formatEntities([entity1, entity2]);
+    expect(formattedEntities.toJS()).toEqual({
+      1234: {
+        hash: '1234',
+        name: 'Yoda',
+      },
+      5678: {
+        hash: '5678',
+        name: 'Obi Wan',
+      },
+    });
+  });
+
+  it('formats a list of crud entity', () => {
+    const entity1 = {
+      hash: '1234',
+      name: 'Yoda',
+    };
+    const entity2 = {
+      hash: '5678',
+      name: 'Obi Wan',
+    };
+
+    const formattedEntities = formatEntitiesList({
+      member: [entity1, entity2],
+    });
     expect(formattedEntities.toJS()).toEqual({
       1234: {
         hash: '1234',

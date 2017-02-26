@@ -1,7 +1,7 @@
 import * as nock from 'nock';
 
 import {
-  fetchEntity,
+  readEntity,
   deleteEntity,
   createEntity,
   updateEntity,
@@ -18,7 +18,11 @@ describe('functionnal observableApiConnector', () => {
     });
   });
 
-  it('fetches an entity', async () => {
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
+  it('reads an entity', async () => {
     mockServer
       .get('/v1/jedis/5/?hasForce=true')
       .reply(200, {
@@ -26,7 +30,7 @@ describe('functionnal observableApiConnector', () => {
         name: 'Yoda',
       });
 
-    const stream$ = fetchEntity({
+    const stream$ = readEntity({
       config: {
         apiProto: 'https',
         baseUrl: 'api.starwars.galaxy',
@@ -51,7 +55,7 @@ describe('functionnal observableApiConnector', () => {
     }
   });
 
-  it('fetches a list of entities', async () => {
+  it('reads a list of entities', async () => {
     mockServer
       .get('/v1/jedis')
       .reply(200, {
@@ -67,7 +71,7 @@ describe('functionnal observableApiConnector', () => {
         ],
       });
 
-    const stream$ = fetchEntity({
+    const stream$ = readEntity({
       config: {
         apiProto: 'https',
         baseUrl: 'api.starwars.galaxy',

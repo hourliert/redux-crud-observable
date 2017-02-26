@@ -1,7 +1,7 @@
-import { crudReducerFactory } from '../index';
+import * as reduxCrudObservable from '../index';
 
 describe('redux-crud-observable', () => {
-  it('defines crudReducerFactory', () => {
-    expect(crudReducerFactory).toBeDefined();
+  it('imports everything', () => {
+    expect(reduxCrudObservable).toBeDefined();
   });
 });

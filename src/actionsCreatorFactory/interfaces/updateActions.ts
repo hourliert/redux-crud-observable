@@ -1,16 +1,22 @@
-import { IActionCreator } from 'redux-rac-utils';
-import { Action } from 'redux';
+import { IActionCreator, IAction } from 'redux-rac-utils';
 import { IEntity } from 'crudEntity';
 
-export interface IUpdateEntityAction extends Action {
-  payload: IUpdateEntityPayload;
-}
+import {
+  IRequestCrudActionPayload,
+} from './crudActions';
 
-export interface IUpdateEntityPayload extends IEntity {}
+export interface IRequestUpdateEntityAction extends IAction<IRequestUpdateEntityPayload, any> {}
+
+export interface IFinishUpdateEntityAction extends IAction<IEntity, any> {}
+
+export interface IRequestUpdateEntityPayload extends IRequestCrudActionPayload {
+  id: string|number;
+  body: any;
+}
 
 export interface IUpdateActionsCreators {
   cancelUpdateEntity: IActionCreator<void, any>;
   failUpdateEntity: IActionCreator<Error, any>;
-  finishUpdateEntity: IActionCreator<IUpdateEntityPayload, any>;
-  requestUpdateEntity: IActionCreator<IUpdateEntityPayload, any>;
+  finishUpdateEntity: IActionCreator<IEntity, any>;
+  requestUpdateEntity: IActionCreator<IRequestUpdateEntityPayload, any>;
 }
