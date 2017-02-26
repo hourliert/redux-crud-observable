@@ -5,6 +5,9 @@ import {
   IRequestCrudActionPayload,
 } from './crudActions';
 
+export interface IRequestDeleteEntityAction extends IAction<IRequestDeleteEntityPayload, any> {}
+export interface IRequestDeleteEntitiesBatchAction extends IAction<IRequestDeleteEntitiesPayload, any> {}
+
 export interface IFinishDeleteEntityAction extends IAction<IEntity, any> {}
 export interface IFinishDeleteEntitiesBatchAction extends IAction<Array<IEntity>, any> {}
 

@@ -26,12 +26,16 @@ describe('epicFactory', () => {
     cancelReadBatchEntities,
     cancelCreateEntity,
     cancelUpdateEntity,
+    cancelDeleteEntity,
+    cancelDeleteBatchEntities,
 
     requestReadEntity,
     requestReadEntitiesList,
     requestReadBatchEntities,
     requestCreateEntity,
     requestUpdateEntity,
+    requestDeleteEntity,
+    requestDeleteBatchEntities,
   } = crudActionsCreatorFactory(entity);
   const mockStore = configureMockStore();
 
@@ -450,6 +454,155 @@ describe('epicFactory', () => {
           .subscribe((actions: any) => {
             try {
               expect(actions.type).toEqual('FAIL_UPDATE_JEDI');
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+  });
+
+  describe('Delete Epic', () => {
+    it('creates a delete entity epic', () => {
+      mockServer
+        .delete('/v1/jedis/5')
+        .reply(201);
+
+      const input$ = ActionsObservable.of(requestDeleteEntity({
+        id: 5,
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            console.log(actions);
+
+            try {
+              expect(actions).toEqual({
+                payload: 5,
+                type: 'FINISH_DELETE_JEDI',
+              });
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('cancels a delete entity epic', () => {
+      const input$ = ActionsObservable.from([
+        requestDeleteEntity({
+          id: 5,
+        }),
+        cancelDeleteEntity(),
+      ]);
+
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((res: boolean) => {
+            try {
+              expect(res).toBeTruthy();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('fails to delete entity epic', () => {
+      mockServer
+        .delete('/v1/jedis/5')
+        .reply(404);
+
+      const input$ = ActionsObservable.of(requestDeleteEntity({
+        id: 5,
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            try {
+              expect(actions.type).toEqual('FAIL_DELETE_JEDI');
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('creates a delete batch entities epic', () => {
+      mockServer
+        .delete('/v1/jedis/5')
+        .reply(201)
+        .delete('/v1/jedis/6')
+        .reply(201);
+
+      const input$ = ActionsObservable.of(requestDeleteBatchEntities({
+        ids: [5, 6],
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            try {
+              expect(actions).toEqual({
+                payload: [5, 6],
+                type: 'FINISH_DELETE_BATCH_JEDIS',
+              });
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('cancels a delete batch entities epic', () => {
+      const input$ = ActionsObservable.from([
+        requestDeleteBatchEntities({
+          ids: [5, 6],
+        }),
+        cancelDeleteBatchEntities(),
+      ]);
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((res: boolean) => {
+            try {
+              expect(res).toBeTruthy();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('fails to delete batch of entities epic', () => {
+      mockServer
+        .delete('/v1/jedis/5')
+        .reply(404)
+        .delete('/v1/jedis/6')
+        .reply(404);
+
+      const input$ = ActionsObservable.of(requestDeleteBatchEntities({
+        ids: [5, 6],
+      }));
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .subscribe((actions: any) => {
+            try {
+              expect(actions.type).toEqual('FAIL_DELETE_BATCH_JEDIS');
               resolve();
             } catch (e) {
               reject(e);
