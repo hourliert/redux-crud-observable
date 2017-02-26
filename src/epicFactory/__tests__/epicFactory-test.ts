@@ -476,8 +476,6 @@ describe('epicFactory', () => {
       return new Promise((resolve, reject) => {
         rootEpic(input$, store)
           .subscribe((actions: any) => {
-            console.log(actions);
-
             try {
               expect(actions).toEqual({
                 payload: 5,
