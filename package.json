@@ -53,7 +53,6 @@
     "testURL": "https://api.starwars.galaxy"
   },
   "dependencies": {
-    "@reactivex/rxjs": "^5.1.0",
     "debug": "^2.6.0",
     "qs": "^6.3.0",
     "redux-rac-utils": "^1.0.1"
@@ -70,6 +69,7 @@
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.2",
     "redux-observable": "^0.13.0",
+    "reselect": "^2.5.4",
     "rxjs": "^5.1.0",
     "ts-jest": "^18.0.2",
     "tslint": "^4.4.2",
@@ -79,6 +79,7 @@
     "immutable": "^3.8.1",
     "redux": "^3.6.0",
     "redux-observable": "^0.13.0",
+    "reselect": "^2.5.4",
     "rxjs": "^5.1.0"
   }
 }
