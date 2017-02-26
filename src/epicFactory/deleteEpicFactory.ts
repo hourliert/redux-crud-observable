@@ -5,7 +5,6 @@ import {
   deleteEntity,
   IApiConfig,
 } from 'observableApiConnector';
-import { IEntity } from 'crudEntity';
 import {
   deleteCrudActionsCreatorFactory,
   IRequestDeleteEntityAction,
