@@ -3,7 +3,6 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 
 import {
   readEntity,
-  IApiConfig,
 } from 'observableApiConnector';
 import { IEntity } from 'crudEntity';
 import {
@@ -18,6 +17,7 @@ import {
   READ_BATCH,
 } from 'constantFactory';
 
+import computeApiConfig from './computeApiConfig';
 import { IEpicParams } from './interfaces';
 
 export default function readEpicFactory({
@@ -40,9 +40,7 @@ export default function readEpicFactory({
       .switchMap(({ meta, payload }: IRequestReadEntityAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return readEntity({
           config: config,
@@ -58,9 +56,7 @@ export default function readEpicFactory({
   const readEntitiesListEpic: Epic<any, any> = (action$: ActionsObservable<any>) => (
     action$.ofType(READ_LIST(entity).REQUEST)
       .switchMap(({ meta, payload }: IRequestReadEntitiesListAction) => {
-        const config = payload && payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload ? payload.api : undefined);
 
         return readEntity({
           config: config,
@@ -77,9 +73,7 @@ export default function readEpicFactory({
       .switchMap(({ meta, payload }: IRequestReadEntitiesAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return Observable
           .forkJoin(

@@ -7,8 +7,6 @@ import { IFinishCreateEntityAction } from 'actionsCreatorFactory';
 import { CrudState } from './interfaces';
 
 export default function createHandlersFactory(ENTITY: string): ReducersMapObject {
-  if (!ENTITY) throw new Error('ENTITY is missing');
-
   return {
     [CREATE(ENTITY).FINISH](state: CrudState, action: IFinishCreateEntityAction): CrudState {
       if (!action.payload) return state;

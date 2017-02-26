@@ -7,8 +7,6 @@ import { IFinishUpdateEntityAction } from 'actionsCreatorFactory';
 import { CrudState } from './interfaces';
 
 export default function updateHandlersFactory(ENTITY: string): ReducersMapObject {
-  if (!ENTITY) throw new Error('ENTITY is missing');
-
   return {
     [UPDATE(ENTITY).FINISH](state: CrudState, action: IFinishUpdateEntityAction): CrudState {
       if (!action.payload) return state;

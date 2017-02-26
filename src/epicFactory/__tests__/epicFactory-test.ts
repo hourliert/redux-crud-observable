@@ -53,6 +53,24 @@ describe('epicFactory', () => {
   });
 
   describe('Create Epic', () => {
+    it('creates a create entity epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestCreateEntity());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
     it('creates a create entity epic', () => {
       const fixture =  {
         id: 5,
@@ -137,6 +155,24 @@ describe('epicFactory', () => {
   });
 
   describe('Read Epic', () => {
+    it('creates a read entity epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestReadEntity());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
     it('creates a read entity epic', () => {
       const fixture =  {
         id: 5,
@@ -290,6 +326,24 @@ describe('epicFactory', () => {
       });
     });
 
+    it('creates a read batch entities epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestReadBatchEntities());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
     it('creates a read batch entities epic', () => {
       const fixture = [
         {
@@ -377,6 +431,24 @@ describe('epicFactory', () => {
   });
 
   describe('Update Epic', () => {
+    it('creates a update entity epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestUpdateEntity());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
     it('creates a update entity epic', () => {
       const fixture =  {
         id: 5,
@@ -464,6 +536,24 @@ describe('epicFactory', () => {
   });
 
   describe('Delete Epic', () => {
+    it('creates a delete entity epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestDeleteEntity());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
     it('creates a delete entity epic', () => {
       mockServer
         .delete('/v1/jedis/5')
@@ -527,6 +617,24 @@ describe('epicFactory', () => {
           .subscribe((actions: any) => {
             try {
               expect(actions.type).toEqual('FAIL_DELETE_JEDI');
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          });
+      });
+    });
+
+    it('creates a delete a batch of entities epic with bad params', () => {
+      const input$ = ActionsObservable.of(requestDeleteBatchEntities());
+
+      return new Promise((resolve, reject) => {
+        rootEpic(input$, store)
+          .isEmpty()
+          .subscribe((actions: boolean) => {
+            try {
+              expect(actions).toBeTruthy();
+
               resolve();
             } catch (e) {
               reject(e);

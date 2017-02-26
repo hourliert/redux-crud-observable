@@ -3,7 +3,6 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 
 import {
   updateEntity,
-  IApiConfig,
 } from 'observableApiConnector';
 import { IEntity } from 'crudEntity';
 import {
@@ -14,6 +13,7 @@ import {
   UPDATE,
 } from 'constantFactory';
 
+import computeApiConfig from './computeApiConfig';
 import { IEpicParams } from './interfaces';
 
 export default function updateEpicFactory({
@@ -30,9 +30,7 @@ export default function updateEpicFactory({
       .switchMap(({ meta, payload }: IRequestUpdateEntityAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return updateEntity({
           body: payload.body,

@@ -7,8 +7,6 @@ import { IFinishReadEntityAction, IFinishReadEntitiesBatchAction, IFinishReadEnt
 import { CrudState } from './interfaces';
 
 export default function readHandlersFactory(ENTITY: string): ReducersMapObject {
-  if (!ENTITY) throw new Error('ENTITY is missing');
-
   return {
     [READ(ENTITY).FINISH](state: CrudState, action: IFinishReadEntityAction): CrudState {
       if (!action.payload) return state;

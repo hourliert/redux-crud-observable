@@ -6,8 +6,6 @@ import { IFinishDeleteEntityAction, IFinishDeleteEntitiesBatchAction } from 'act
 import { CrudState } from './interfaces';
 
 export default function deleteHandlersFactory(ENTITY: string): ReducersMapObject {
-  if (!ENTITY) throw new Error('ENTITY is missing');
-
   return {
     [DELETE(ENTITY).FINISH](state: CrudState, action: IFinishDeleteEntityAction): CrudState {
       if (!action.payload) return state;

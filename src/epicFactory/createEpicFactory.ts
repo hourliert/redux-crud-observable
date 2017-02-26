@@ -3,7 +3,6 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 
 import {
   createEntity,
-  IApiConfig,
 } from 'observableApiConnector';
 import { IEntity } from 'crudEntity';
 import {
@@ -14,6 +13,7 @@ import {
   CREATE,
 } from 'constantFactory';
 
+import computeApiConfig from './computeApiConfig';
 import { IEpicParams } from './interfaces';
 
 export default function createEpicFactory({
@@ -30,9 +30,7 @@ export default function createEpicFactory({
       .switchMap(({ meta, payload }: IRequestCreateEntityAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return createEntity({
           body: payload.body,

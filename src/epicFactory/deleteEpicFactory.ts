@@ -3,7 +3,6 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 
 import {
   deleteEntity,
-  IApiConfig,
 } from 'observableApiConnector';
 import {
   deleteCrudActionsCreatorFactory,
@@ -15,6 +14,7 @@ import {
   DELETE_BATCH,
 } from 'constantFactory';
 
+import computeApiConfig from './computeApiConfig';
 import { IEpicParams } from './interfaces';
 
 export default function deleteEpicFactory({
@@ -34,9 +34,7 @@ export default function deleteEpicFactory({
       .switchMap(({ meta, payload }: IRequestDeleteEntityAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return deleteEntity({
           config: config,
@@ -54,9 +52,7 @@ export default function deleteEpicFactory({
       .switchMap(({ meta, payload }: IRequestDeleteEntitiesBatchAction) => {
         if (!payload) return Observable.empty();
 
-        const config = payload.api ?
-          Object.assign<Object, IApiConfig, IApiConfig>({}, apiConfig, payload.api) :
-          apiConfig;
+        const config = computeApiConfig(apiConfig, payload.api);
 
         return Observable
           .forkJoin(
