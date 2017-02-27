@@ -1,56 +1,31 @@
-// /**
-//  * Created by thomashourlier on 12/8/16.
-//  */
+import { get } from 'lodash';
 
-// import { createSelector } from 'reselect';
-// import { propsSelector } from '../components';
+import { CrudState } from 'reducerFactory';
+import { createSelector } from 'reselect';
 
-// export default function crudStoreSelectorsFactory(ENTITY) {
-//   const entitiesStoreSelector = state => state.immutable[ENTITY].store;
+import { ICrudSelectors } from './interfaces';
 
-//   const storeEntitiesCountSelector = createSelector(
-//     entitiesStoreSelector,
-//     (entitiesStore) => entitiesStore.get('totalCount')
-//   );
+export default function crudStoreSelectorsFactory(storeKeyPath: string[]): ICrudSelectors {
+  const entitiesStoreSelector = (state: any): CrudState => get<CrudState>(state, storeKeyPath);
 
-//   const entityBootTimeSelector = createSelector(
-//     entitiesStoreSelector,
-//     (entitiesStore) => entitiesStore.get('bootTime')
-//   );
+  const entitiesValueSelector = createSelector(
+    entitiesStoreSelector,
+    (entitiesStore) => entitiesStore.get('value'),
+  );
 
-//   const entitiesValueSelector = createSelector(
-//     entitiesStoreSelector,
-//     (entitiesStore) => entitiesStore.get('value')
-//   );
+  const entityBootTimeSelector = createSelector(
+    entitiesStoreSelector,
+    (entitiesStore) => entitiesStore.get('bootTime'),
+  );
 
-//   const requestedEntitiesSelector = createSelector(
-//     entitiesValueSelector,
-//     entityBootTimeSelector,
-//     (entitiesValue, entityBootTime) => {
-//       const entityBootTimeTS = Number(new Date(entityBootTime));
+  const storeEntitiesCountSelector = createSelector(
+    entitiesValueSelector,
+    (entitiesValue) => entitiesValue.size,
+  );
 
-//       return entitiesValue.filter(i =>
-//         number(new Date(i.get('requestedAt'))) >= entityBootTimeTS
-//       );
-//     }
-//   );
-
-//   // NOTE: This is factory function returning a selector
-//   // @see https://github.com/reactjs/reselect#sharing-selectors-with-props-across-multiple-components
-//   const createEntityByHashPropSelector = () =>
-//     createSelector(
-//       entitiesValueSelector,
-//       propsSelector,
-//       (entitiesValue, props) => {
-//         return entitiesValue.get(props.hash);
-//       }
-//     );
-
-//   return {
-//     storeEntitiesCountSelector,
-//     entityBootTimeSelector,
-//     entitiesValueSelector,
-//     requestedEntitiesSelector,
-//     createEntityByHashPropSelector,
-//   };
-// }
+  return {
+    storeEntitiesCountSelector,
+    entityBootTimeSelector,
+    entitiesValueSelector,
+  };
+}

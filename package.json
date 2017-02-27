@@ -54,12 +54,14 @@
   },
   "dependencies": {
     "debug": "^2.6.0",
+    "lodash": "^4.4.2",
     "qs": "^6.3.0",
     "redux-rac-utils": "^1.0.1"
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
     "@types/jest": "^18.1.1",
+    "@types/lodash": "^4.4.1",
     "@types/nock": "^8.2.0",
     "@types/qs": "^6.2.30",
     "@types/redux-mock-store": "0.0.7",
