@@ -25,9 +25,9 @@ branches:
   - gh-pages
 env:
   global:
-    - DEPLOY_BRANCH="master"
-    - SOURCE_DIR="doc"
-    - TARGET_BRANCH="gh-pages"
-    - SSH_KEY="id_rsa"
-    - GIT_NAME="travis"
-    - GIT_EMAIL="deploy@travis-ci.org"
+  - DEPLOY_BRANCH="master"
+  - SOURCE_DIR="doc"
+  - TARGET_BRANCH="gh-pages"
+  - SSH_KEY="id_rsa"
+  - GIT_NAME="travis"
+  - GIT_EMAIL="deploy@travis-ci.org"
