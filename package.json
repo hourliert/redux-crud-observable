@@ -18,7 +18,8 @@
     "compile": "npm run compile:es5 & npm run compile:es2015",
     "compile:es5": "tsc -p .",
     "compile:es2015": "tsc -p . --target es2015 --module es2015 --outDir ./es",
-    "compile:watch": "npm run compile:es5 -- -w"
+    "compile:watch": "npm run compile:es5 -- -w",
+    "doc": "typedoc --mode modules --target ES6 --module ES6 --exclude **/*-test.ts --out doc src"
   },
   "repository": {
     "type": "git",
@@ -56,7 +57,8 @@
     "debug": "^2.6.0",
     "lodash": "^4.4.2",
     "qs": "^6.3.0",
-    "redux-rac-utils": "^1.0.1"
+    "redux-rac-utils": "^1.0.1",
+    "immutable": "^3.8.1"
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
@@ -65,7 +67,6 @@
     "@types/nock": "^8.2.0",
     "@types/qs": "^6.2.30",
     "@types/redux-mock-store": "0.0.7",
-    "immutable": "^3.8.1",
     "jest": "^18.1.0",
     "nock": "^9.0.5",
     "redux": "^3.6.0",
@@ -75,13 +76,13 @@
     "rxjs": "^5.1.0",
     "ts-jest": "^18.0.2",
     "tslint": "^4.4.2",
+    "typedoc": "^0.5.7",
     "typescript": "^2.2.0"
   },
   "peerDependencies": {
-    "immutable": "^3.8.1",
-    "redux": "^3.6.0",
-    "redux-observable": "^0.13.0",
-    "reselect": "^2.5.4",
-    "rxjs": "^5.1.0"
+    "redux": ">=3.6.0",
+    "redux-observable": ">=0.13.0",
+    "rxjs": ">=5.1.0",
+    "reselect": ">=2.5.4"
   }
 }

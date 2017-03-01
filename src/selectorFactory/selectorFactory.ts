@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 
 import { ICrudSelectors } from './interfaces';
 
-export default function crudStoreSelectorsFactory(storeKeyPath: string[]): ICrudSelectors {
+export default function crudSelectorsFactory(storeKeyPath: string[]): ICrudSelectors {
   const entitiesStoreSelector = (state: any): CrudState => get<CrudState>(state, storeKeyPath);
 
   const entitiesValueSelector = createSelector(
