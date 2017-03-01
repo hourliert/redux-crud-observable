@@ -67,6 +67,7 @@
     "@types/nock": "^8.2.0",
     "@types/qs": "^6.2.30",
     "@types/redux-mock-store": "0.0.7",
+    "gh-pages-travis": "^1.0.4",
     "jest": "^18.1.0",
     "nock": "^9.0.5",
     "redux": "^3.6.0",
