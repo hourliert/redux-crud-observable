@@ -126,4 +126,4 @@ console.log(entitiesValueSelector(state)); => // Immutable.Map({ 1234: { hash: 1
 ## Roadmap
 
 * Make the API configuration more generic
-* Make customizable the API entity shape (thinking about the id of the entity is found with a `hash` key at the moment)
+* Make customizable the API entity shape (thinking about how the id of the entity is found (at the moment, with a static `hash` key)
