@@ -1,6 +1,6 @@
 {
   "name": "redux-crud-observable",
-  "version": "1.0.0-2",
+  "version": "1.0.0",
   "description": "Actions, reducers & epics for managing crud redux state",
   "main": "lib/index.js",
   "module": "es/index.js",
