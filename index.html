@@ -78,11 +78,15 @@
 				</ul>
 				<p>It also comes with a very handy feature: request cancellation. It means that you can cancel at any time a request that is already flying ✈️.</p>
 				<h2 id="getting-started">Getting Started</h2>
-				<p>As always, simply run:</p>
+				<p>Simply run:</p>
 				<pre><code class="lang-js">npm install --save redux-crud-observable
 </code></pre>
+				<p>It also has <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/e0540947757cc7375b741a71a93ee76a3eeed9bd/package.json#L83">peer dependencies</a>: <strong>redux, redux-observable, rxjs and reselect</strong>. </p>
+				<h2 id="doc">Doc</h2>
+				<p>You could browse the project documentation <a href="https://foodmeup.github.io/redux-crud-observable/index.html">here</a>.</p>
 				<h2 id="usage">Usage</h2>
-				<h3 id="configuration">configuration</h3>
+				<p>You could check an exemple in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/7fa12ab1d3f73b2c0170d1cb58402a5176ba14a1/src/__tests__/reduxCrudObservable-test.ts#L66">this</a> functionnal test.</p>
+				<h3 id="configuration">Configuration</h3>
 				<p>To use this library, you will have to add the <code>createEpicMiddleware</code> from <strong>redux-observable</strong> to your store enhancers.
 				Here is a bery basic setup.</p>
 				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
@@ -106,10 +110,10 @@
   <span class="hljs-attr">entity</span>: ENTITY,
 });
 
-<span class="hljs-keyword">const</span> store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));;
+<span class="hljs-keyword">const</span> store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));
 </code></pre>
 				<h3 id="actions-creators">Actions Creators</h3>
-				<p>You could generate and use crud actions creators like that:</p>
+				<p>You can generate and use crud actions creators like that:</p>
 				<pre><code class="lang-js">
 <span class="hljs-keyword">import</span> { crudActionsCreatorFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
 
@@ -122,8 +126,9 @@
   <span class="hljs-attr">id</span>: <span class="hljs-number">5</span>
 })); <span class="hljs-comment">// { type: 'REQUEST_READ_JEDI', payload: 5 }</span>
 </code></pre>
+				<p>The full list of actions creators is available <a href="https://foodmeup.github.io/redux-crud-observable/interfaces/_actionscreatorfactory_interfaces_crudactions_.icrudactionscreators.html">here</a>.</p>
 				<h3 id="reducer">Reducer</h3>
-				<p>You could create the crud reducer and use it like that:</p>
+				<p>You can create the crud reducer and use it like that:</p>
 				<pre><code class="lang-js">
 <span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
 <span class="hljs-keyword">import</span> { crudReducerFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
@@ -135,8 +140,7 @@
 });
 </code></pre>
 				<h3 id="epic">Epic</h3>
-				<p>You need to configure the redux-observable middleware <code>createEpicMiddleware</code> before using this library.
-				You can do it by using:</p>
+				<p>You can create the root crud epic like that:</p>
 				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { crudEpicFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
 
 <span class="hljs-keyword">const</span> rootEpic = crudEpicFactory({
@@ -152,7 +156,7 @@
 });
 </code></pre>
 				<h3 id="selectors">Selectors</h3>
-				<p>You could create and reselect selectors like that:</p>
+				<p>You can create some reselect selectors like that:</p>
 				<pre><code class="lang-js">
 <span class="hljs-keyword">import</span> { crudSelectorFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
 
@@ -160,10 +164,11 @@
 
 <span class="hljs-built_in">console</span>.log(entitiesValueSelector(state)); =&gt; <span class="hljs-comment">// Immutable.Map({ 1234: { hash: 1234, name: 'Yoda' } });</span>
 </code></pre>
+				<p><a href="https://foodmeup.github.io/redux-crud-observable/interfaces/_selectorfactory_interfaces_selectorfactory_.icrudselectors.html">Here</a> is the list of available selectors.</p>
 				<h2 id="roadmap">Roadmap</h2>
 				<ul>
-					<li>Make the API configuration more generic</li>
-					<li>Make customizable the API entity shape (thinking about how the id of the entity is found (at the moment, with a static <code>hash</code> key)</li>
+					<li>Make the API configuration more generic (<a href="https://foodmeup.github.io/redux-crud-observable/interfaces/_observableapiconnector_interfaces_requestformatters_.iapiconfig.html">current implementation</a>)</li>
+					<li>Make the API entity shape customizable (thinking about how the id of the entity is found (at the moment, with a static <code>hash</code> key)) (<a href="https://foodmeup.github.io/redux-crud-observable/interfaces/_crudentity_interfaces_entities_.ientity.html">current entity shape</a>)</li>
 				</ul>
 			</div>
 		</div>
