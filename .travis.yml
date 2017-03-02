@@ -11,6 +11,7 @@ after_success:
   ./coverage/lcov-report
 - codecov -e TRAVIS_NODE_VERSION
 - npm run doc
+- touch doc/.nojekyll
 - gh-pages-travis
 deploy:
   provider: npm
