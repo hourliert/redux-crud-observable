@@ -1,0 +1,452 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>redux-crud-observable</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">redux-crud-observable</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> redux-crud-observable</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="redux-crud-observable">redux-crud-observable</h1>
+				<p><a href="https://travis-ci.org/FoodMeUp/redux-crud-observable"><img src="https://travis-ci.org/FoodMeUp/redux-crud-observable.svg?branch=master" alt="Build Status"></a>
+				<a href="https://codecov.io/gh/FoodMeUp/redux-crud-observable"><img src="https://codecov.io/gh/FoodMeUp/redux-crud-observable/branch/master/graph/badge.svg" alt="codecov"></a></p>
+				<p>Ever been tired of manipulating CRUD entities in a redux app? You always have to do the same things again and again:
+				fetching an entity, doing the corresponding ajax call, waiting for the promise resolution, storing the value in a reducer... Boring.</p>
+				<p><strong>redux-crud-observable</strong> is doing all of that for you. You only have to setup your entity name and your api configuration. It will handle the rest for you, ie:</p>
+				<ul>
+					<li>generating the corresponding actions creators</li>
+					<li>generating the corresponding reducer</li>
+					<li>generating the corresponding selectors</li>
+					<li>handling all ajax calls</li>
+				</ul>
+				<p>It also comes with a very handy feature: request cancellation. It means that you can cancel at any time a request that is already flying ✈️.</p>
+				<h2 id="getting-started">Getting Started</h2>
+				<p>As always, simply run:</p>
+				<pre><code class="lang-js">npm install --save redux-crud-observable
+</code></pre>
+				<h2 id="usage">Usage</h2>
+				<h3 id="configuration">configuration</h3>
+				<p>To use this library, you will have to add the <code>createEpicMiddleware</code> from <strong>redux-observable</strong> to your store enhancers.
+				Here is a bery basic setup.</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+<span class="hljs-keyword">import</span> { createEpicMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-observable'</span>;
+<span class="hljs-keyword">import</span> { epicFactory, crudReducerFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
+
+<span class="hljs-keyword">const</span> ENTITY = <span class="hljs-string">'JEDI'</span>;
+<span class="hljs-keyword">const</span> crudReducer = crudReducerFactory(ENTITY);
+<span class="hljs-keyword">const</span> rootReducer = combineReducers({
+  <span class="hljs-attr">crud</span>: crudReducer,
+});
+<span class="hljs-keyword">const</span> rootEpic = reduxCrudObservable.crudEpicFactory({
+  <span class="hljs-attr">apiConfig</span>: {
+    <span class="hljs-attr">apiProto</span>: <span class="hljs-string">'https'</span>,
+    <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'api.starwars.galaxy'</span>,
+    <span class="hljs-attr">json</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">route</span>: <span class="hljs-string">'/jedis'</span>,
+    <span class="hljs-attr">token</span>: <span class="hljs-string">'Bearer 1234'</span>,
+    <span class="hljs-attr">version</span>: <span class="hljs-string">'/v1'</span>,
+  },
+  <span class="hljs-attr">entity</span>: ENTITY,
+});
+
+<span class="hljs-keyword">const</span> store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));;
+</code></pre>
+				<h3 id="actions-creators">Actions Creators</h3>
+				<p>You could generate and use crud actions creators like that:</p>
+				<pre><code class="lang-js">
+<span class="hljs-keyword">import</span> { crudActionsCreatorFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
+
+<span class="hljs-keyword">const</span> {
+  requestReadEntity,
+  cancelReadEntity,
+} = reduxCrudObservable.crudActionsCreatorFactory(<span class="hljs-string">'JEDI'</span>);
+
+<span class="hljs-built_in">console</span>.log(requestReadEntity({
+  <span class="hljs-attr">id</span>: <span class="hljs-number">5</span>
+})); <span class="hljs-comment">// { type: 'REQUEST_READ_JEDI', payload: 5 }</span>
+</code></pre>
+				<h3 id="reducer">Reducer</h3>
+				<p>You could create the crud reducer and use it like that:</p>
+				<pre><code class="lang-js">
+<span class="hljs-keyword">import</span> { combineReducers } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
+<span class="hljs-keyword">import</span> { crudReducerFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
+
+<span class="hljs-keyword">const</span> crudReducer = crudReducerFactory(<span class="hljs-string">'JEDI'</span>);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> combineReducers({
+  <span class="hljs-attr">crud</span>: crudReducer,
+});
+</code></pre>
+				<h3 id="epic">Epic</h3>
+				<p>You need to configure the redux-observable middleware <code>createEpicMiddleware</code> before using this library.
+				You can do it by using:</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { crudEpicFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
+
+<span class="hljs-keyword">const</span> rootEpic = crudEpicFactory({
+  <span class="hljs-attr">apiConfig</span>: {
+    <span class="hljs-attr">apiProto</span>: <span class="hljs-string">'https'</span>,
+    <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'api.starwars.galaxy'</span>,
+    <span class="hljs-attr">json</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">route</span>: <span class="hljs-string">'/jedis'</span>,
+    <span class="hljs-attr">token</span>: <span class="hljs-string">'Bearer 1234'</span>,
+    <span class="hljs-attr">version</span>: <span class="hljs-string">'/v1'</span>,
+  },
+  <span class="hljs-attr">entity</span>: <span class="hljs-string">'JEDI'</span>,
+});
+</code></pre>
+				<h3 id="selectors">Selectors</h3>
+				<p>You could create and reselect selectors like that:</p>
+				<pre><code class="lang-js">
+<span class="hljs-keyword">import</span> { crudSelectorFactory } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux-crud-observable'</span>;
+
+<span class="hljs-keyword">const</span> { entitiesValueSelector } = crudSelectorFactory([<span class="hljs-string">'crud'</span>]);
+
+<span class="hljs-built_in">console</span>.log(entitiesValueSelector(state)); =&gt; <span class="hljs-comment">// Immutable.Map({ 1234: { hash: 1234, name: 'Yoda' } });</span>
+</code></pre>
+				<h2 id="roadmap">Roadmap</h2>
+				<ul>
+					<li>Make the API configuration more generic</li>
+					<li>Make customizable the API entity shape (thinking about how the id of the entity is found (at the moment, with a static <code>hash</code> key)</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_actionscreatorfactory_.html">"actions<wbr>Creator<wbr>Factory/actions<wbr>Creator<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_createactionscreatorfactory_.html">"actions<wbr>Creator<wbr>Factory/create<wbr>Actions<wbr>Creator<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_deleteactionscreatorfactory_.html">"actions<wbr>Creator<wbr>Factory/delete<wbr>Actions<wbr>Creator<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_index_.html">"actions<wbr>Creator<wbr>Factory/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_createactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/create<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_crudactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/crud<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_deleteactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/delete<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_index_.html">"actions<wbr>Creator<wbr>Factory/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_readactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/read<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_storeactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/store<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_interfaces_updateactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/update<wbr>Actions"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_readactionscreatorfactory_.html">"actions<wbr>Creator<wbr>Factory/read<wbr>Actions<wbr>Creator<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_actionscreatorfactory_updateactionscreatorfactory_.html">"actions<wbr>Creator<wbr>Factory/update<wbr>Actions<wbr>Creator<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_index_.html">"config/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_initialstate_.html">"config/initial<wbr>State"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_interfaces_index_.html">"config/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_interfaces_initialstate_.html">"config/interfaces/initial<wbr>State"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_create_.html">"constant<wbr>Factory/create"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_delete_.html">"constant<wbr>Factory/delete"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_interfaces_icrudaction_.html">"constant<wbr>Factory/interfaces/ICrud<wbr>Action"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_interfaces_index_.html">"constant<wbr>Factory/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_read_.html">"constant<wbr>Factory/read"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_store_.html">"constant<wbr>Factory/store"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_constantfactory_update_.html">"constant<wbr>Factory/update"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_crudentity_formatentities_.html">"crud<wbr>Entity/format<wbr>Entities"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_crudentity_interfaces_entities_.html">"crud<wbr>Entity/interfaces/entities"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_crudentity_interfaces_index_.html">"crud<wbr>Entity/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_computeapiconfig_.html">"epic<wbr>Factory/compute<wbr>Api<wbr>Config"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_createepicfactory_.html">"epic<wbr>Factory/create<wbr>Epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_deleteepicfactory_.html">"epic<wbr>Factory/delete<wbr>Epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_epicfactory_.html">"epic<wbr>Factory/epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_index_.html">"epic<wbr>Factory/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_interfaces_epicfactory_.html">"epic<wbr>Factory/interfaces/epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_interfaces_index_.html">"epic<wbr>Factory/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_readepicfactory_.html">"epic<wbr>Factory/read<wbr>Epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_epicfactory_updateepicfactory_.html">"epic<wbr>Factory/update<wbr>Epic<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_errors_apierror_.html">"errors/<wbr>Api<wbr>Error"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_errors_interfaces_apierror_.html">"errors/interfaces/<wbr>Api<wbr>Error"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_errors_interfaces_index_.html">"errors/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_interfaces_index_.html">"observable<wbr>Api<wbr>Connector/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_interfaces_observableapiconnector_.html">"observable<wbr>Api<wbr>Connector/interfaces/observable<wbr>Api<wbr>Connector"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_interfaces_requestformatters_.html">"observable<wbr>Api<wbr>Connector/interfaces/request<wbr>Formatters"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_interfaces_streamformatters_.html">"observable<wbr>Api<wbr>Connector/interfaces/stream<wbr>Formatters"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_observableapiconnector_.html">"observable<wbr>Api<wbr>Connector/observable<wbr>Api<wbr>Connector"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_requestformatters_.html">"observable<wbr>Api<wbr>Connector/request<wbr>Formatters"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_observableapiconnector_streamformatters_.html">"observable<wbr>Api<wbr>Connector/stream<wbr>Formatters"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_computeinitialstate_.html">"reducer<wbr>Factory/compute<wbr>Initial<wbr>State"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_createhandlersfactory_.html">"reducer<wbr>Factory/create<wbr>Handlers<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_deletehandlersfactory_.html">"reducer<wbr>Factory/delete<wbr>Handlers<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_index_.html">"reducer<wbr>Factory/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_interfaces_index_.html">"reducer<wbr>Factory/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_interfaces_reducerfactory_.html">"reducer<wbr>Factory/interfaces/reducer<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_readhandlersfactory_.html">"reducer<wbr>Factory/read<wbr>Handlers<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_reducerfactory_.html">"reducer<wbr>Factory/reducer<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_storehandlersfactory_.html">"reducer<wbr>Factory/store<wbr>Handlers<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_reducerfactory_updatehandlersfactory_.html">"reducer<wbr>Factory/update<wbr>Handlers<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_selectorfactory_index_.html">"selector<wbr>Factory/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_selectorfactory_interfaces_index_.html">"selector<wbr>Factory/interfaces/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_selectorfactory_interfaces_selectorfactory_.html">"selector<wbr>Factory/interfaces/selector<wbr>Factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_selectorfactory_selectorfactory_.html">"selector<wbr>Factory/selector<wbr>Factory"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_constantfactory_index_.html">"constant<wbr>Factory/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_crudentity_index_.html">"crud<wbr>Entity/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_errors_index_.html">"errors/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_observableapiconnector_index_.html">"observable<wbr>Api<wbr>Connector/index"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
