@@ -15,14 +15,21 @@ It also comes with a very handy feature: request cancellation. It means that you
 
 ## Getting Started
 
-As always, simply run:
+Simply run:
 ```js
 npm install --save redux-crud-observable
 ```
 
+It also has [peer dependencies](https://github.com/FoodMeUp/redux-crud-observable/blob/e0540947757cc7375b741a71a93ee76a3eeed9bd/package.json#L83): **redux, redux-observable, rxjs and reselect**. 
+
+## Doc
+You could browse the project documentation [here](https://foodmeup.github.io/redux-crud-observable/index.html).
+
 ## Usage
 
-### configuration
+You could check an exemple in [this](https://github.com/FoodMeUp/redux-crud-observable/blob/7fa12ab1d3f73b2c0170d1cb58402a5176ba14a1/src/__tests__/reduxCrudObservable-test.ts#L66) functionnal test.
+
+### Configuration
 
 To use this library, you will have to add the `createEpicMiddleware` from **redux-observable** to your store enhancers.
 Here is a bery basic setup.
@@ -49,12 +56,12 @@ const rootEpic = reduxCrudObservable.crudEpicFactory({
   entity: ENTITY,
 });
 
-const store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));;
+const store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));
 ```
 
 ### Actions Creators
 
-You could generate and use crud actions creators like that:
+You can generate and use crud actions creators like that:
 
 ```js
 
@@ -71,9 +78,11 @@ console.log(requestReadEntity({
 
 ```
 
+The full list of actions creators is available [here](https://foodmeup.github.io/redux-crud-observable/interfaces/_actionscreatorfactory_interfaces_crudactions_.icrudactionscreators.html).
+
 ### Reducer
 
-You could create the crud reducer and use it like that:
+You can create the crud reducer and use it like that:
 
 ```js
 
@@ -90,8 +99,7 @@ export default combineReducers({
 
 ### Epic
 
-You need to configure the redux-observable middleware `createEpicMiddleware` before using this library.
-You can do it by using:
+You can create the root crud epic like that:
 
 ```js
 import { crudEpicFactory } from 'redux-crud-observable';
@@ -111,7 +119,7 @@ const rootEpic = crudEpicFactory({
 
 ### Selectors
 
-You could create and reselect selectors like that:
+You can create some reselect selectors like that:
 
 ```js
 
@@ -122,8 +130,9 @@ const { entitiesValueSelector } = crudSelectorFactory(['crud']);
 console.log(entitiesValueSelector(state)); => // Immutable.Map({ 1234: { hash: 1234, name: 'Yoda' } });
 ```
 
+[Here](https://foodmeup.github.io/redux-crud-observable/interfaces/_selectorfactory_interfaces_selectorfactory_.icrudselectors.html) is the list of available selectors.
 
 ## Roadmap
 
-* Make the API configuration more generic
-* Make customizable the API entity shape (thinking about how the id of the entity is found (at the moment, with a static `hash` key)
+* Make the API configuration more generic ([current implementation](https://foodmeup.github.io/redux-crud-observable/interfaces/_observableapiconnector_interfaces_requestformatters_.iapiconfig.html))
+* Make the API entity shape customizable (thinking about how the id of the entity is found (at the moment, with a static `hash` key)) ([current entity shape](https://foodmeup.github.io/redux-crud-observable/interfaces/_crudentity_interfaces_entities_.ientity.html))
