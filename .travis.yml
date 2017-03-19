@@ -5,12 +5,13 @@ node_js:
 before_install:
 - openssl aes-256-cbc -K $encrypted_8469635b2593_key -iv $encrypted_8469635b2593_iv
   -in id_rsa.enc -out id_rsa -d
-- npm install -g codecov
+- npm i -g yarn
+- yarn global add codecov
 after_success:
 - rm -rf ./coverage/clover.xml ./coverage/coverage-final.json ./coverage/lcov.info
   ./coverage/lcov-report
 - codecov -e TRAVIS_NODE_VERSION
-- npm run doc
+- yarn doc
 - touch doc/.nojekyll
 - gh-pages-travis
 deploy:
@@ -32,3 +33,5 @@ env:
   - SSH_KEY="id_rsa"
   - GIT_NAME="travis"
   - GIT_EMAIL="deploy@travis-ci.org"
+cache:
+  yarn: true
