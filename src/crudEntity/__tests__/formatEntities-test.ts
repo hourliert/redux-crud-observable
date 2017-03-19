@@ -3,14 +3,14 @@ import { formatEntity, formatEntities, formatEntitiesList } from '../formatEntit
 describe('Crud Entities', () => {
   it('formats a crud entity', () => {
     const entity = {
-      hash: '1234',
+      _internalHash: '1234',
       name: 'Yoda',
     };
 
     const formattedEntity = formatEntity(entity);
     expect(formattedEntity.toJS()).toEqual({
       1234: {
-        hash: '1234',
+        _internalHash: '1234',
         name: 'Yoda',
       },
     });
@@ -18,22 +18,22 @@ describe('Crud Entities', () => {
 
   it('formats an array of crud entity', () => {
     const entity1 = {
-      hash: '1234',
+      _internalHash: '1234',
       name: 'Yoda',
     };
     const entity2 = {
-      hash: '5678',
+      _internalHash: '5678',
       name: 'Obi Wan',
     };
 
     const formattedEntities = formatEntities([entity1, entity2]);
     expect(formattedEntities.toJS()).toEqual({
       1234: {
-        hash: '1234',
+        _internalHash: '1234',
         name: 'Yoda',
       },
       5678: {
-        hash: '5678',
+        _internalHash: '5678',
         name: 'Obi Wan',
       },
     });
@@ -41,24 +41,24 @@ describe('Crud Entities', () => {
 
   it('formats a list of crud entity', () => {
     const entity1 = {
-      hash: '1234',
+      _internalHash: '1234',
       name: 'Yoda',
     };
     const entity2 = {
-      hash: '5678',
+      _internalHash: '5678',
       name: 'Obi Wan',
     };
 
     const formattedEntities = formatEntitiesList({
-      member: [entity1, entity2],
+      _internalMember: [entity1, entity2],
     });
     expect(formattedEntities.toJS()).toEqual({
       1234: {
-        hash: '1234',
+        _internalHash: '1234',
         name: 'Yoda',
       },
       5678: {
-        hash: '5678',
+        _internalHash: '5678',
         name: 'Obi Wan',
       },
     });

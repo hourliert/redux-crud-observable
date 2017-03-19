@@ -20,7 +20,7 @@ Simply run:
 npm install --save redux-crud-observable
 ```
 
-It also has [peer dependencies](https://github.com/FoodMeUp/redux-crud-observable/blob/e0540947757cc7375b741a71a93ee76a3eeed9bd/package.json#L83): **redux, redux-observable, rxjs and reselect**. 
+It also has [peer dependencies](https://github.com/FoodMeUp/redux-crud-observable/blob/e0540947757cc7375b741a71a93ee76a3eeed9bd/package.json#L83): **redux, redux-observable, rxjs and reselect**.
 
 ## Doc
 You could browse the project documentation [here](https://foodmeup.github.io/redux-crud-observable/index.html).
@@ -135,4 +135,3 @@ console.log(entitiesValueSelector(state)); => // Immutable.Map({ 1234: { hash: 1
 ## Roadmap
 
 * Make the API configuration more generic ([current implementation](https://foodmeup.github.io/redux-crud-observable/interfaces/_observableapiconnector_interfaces_requestformatters_.iapiconfig.html))
-* Make the API entity shape customizable (thinking about how the id of the entity is found (at the moment, with a static `hash` key)) ([current entity shape](https://foodmeup.github.io/redux-crud-observable/interfaces/_crudentity_interfaces_entities_.ientity.html))

@@ -1,13 +1,11 @@
 import { Map } from 'immutable';
 
-// todo: make hash configurable
 export interface IEntity {
-  hash: string;
+  _internalHash: string;
 }
 
-// todo: make member configurable
 export interface IEntitiesList {
-  member: Array<IEntity>;
+  _internalMember: Array<IEntity>;
 }
 
 export type FormattedEntity = Map<string, any>;

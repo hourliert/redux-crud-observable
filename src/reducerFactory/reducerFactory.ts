@@ -1,8 +1,8 @@
 import { Reducer, ReducersMapObject } from 'redux';
 import { reducerFactory } from 'redux-rac-utils';
-import { initialState } from 'config';
 
 import { CrudState } from './interfaces';
+import initialState from './initialState';
 import computeInitialState from './computeInitialState';
 import storeHandlersFactory from './storeHandlersFactory';
 import createHandlersFactory from './createHandlersFactory';

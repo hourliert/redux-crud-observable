@@ -1,4 +1,4 @@
-import { initialState } from 'config';
+import initialState from '../initialState';
 
 import computeInitialState from '../computeInitialState';
 
