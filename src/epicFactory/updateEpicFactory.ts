@@ -4,7 +4,7 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 import {
   updateEntity,
 } from 'observableApiConnector';
-import { IEntity } from 'crudEntity';
+import { IEntity, resolveEntityKey } from 'crudEntity';
 import {
   updateCrudActionsCreatorFactory,
   IRequestUpdateEntityAction,
@@ -38,6 +38,7 @@ export default function updateEpicFactory({
           id: payload.id,
           queryParams: payload.queryParams,
         })
+          .map((res: any) => resolveEntityKey(res))
           .map((res: IEntity) => finishUpdateEntity(res, meta))
           .takeUntil(action$.ofType(UPDATE(entity).CANCEL))
           .catch((error: Error) => Observable.of(failUpdateEntity(error, meta)));

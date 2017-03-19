@@ -4,7 +4,13 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 import {
   readEntity,
 } from 'observableApiConnector';
-import { IEntity } from 'crudEntity';
+import {
+  IEntity,
+  IEntitiesList,
+  resolveEntityKey,
+  resolveEntitiesKey,
+  resolveEntitiesListKey,
+} from 'crudEntity';
 import {
   readCrudActionsCreatorFactory,
   IRequestReadEntityAction,
@@ -47,6 +53,7 @@ export default function readEpicFactory({
           id: payload.id,
           queryParams: payload.queryParams,
         })
+          .map((res: any) => resolveEntityKey(res))
           .map((res: IEntity) => finishReadEntity(res, meta))
           .takeUntil(action$.ofType(READ(entity).CANCEL))
           .catch((error: Error) => Observable.of(failReadEntity(error, meta)));
@@ -62,7 +69,8 @@ export default function readEpicFactory({
           config: config,
           queryParams: payload && payload.queryParams,
         })
-          .map((res: IEntity) => finishReadEntitiesList(res, meta))
+          .map((res: any) => resolveEntitiesListKey(res))
+          .map((res: IEntitiesList) => finishReadEntitiesList(res, meta))
           .takeUntil(action$.ofType(READ_LIST(entity).CANCEL))
           .catch((error: Error) => Observable.of(failReadEntitiesList(error, meta)));
       })
@@ -83,6 +91,7 @@ export default function readEpicFactory({
               queryParams: payload.queryParams,
             })),
           )
+          .map((res: any) => resolveEntitiesKey(res))
           .map((res: Array<IEntity>) => finishReadBatchEntities(res, meta))
           .takeUntil(action$.ofType(READ_BATCH(entity).CANCEL))
           .catch((error: Error) => Observable.of(failReadBatchEntities(error, meta)));

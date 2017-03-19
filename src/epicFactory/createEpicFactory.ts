@@ -4,7 +4,7 @@ import { ActionsObservable, Epic, combineEpics } from 'redux-observable';
 import {
   createEntity,
 } from 'observableApiConnector';
-import { IEntity } from 'crudEntity';
+import { IEntity, resolveEntityKey } from 'crudEntity';
 import {
   createCrudActionsCreatorFactory,
   IRequestCreateEntityAction,
@@ -37,6 +37,7 @@ export default function createEpicFactory({
           config: config,
           queryParams: payload.queryParams,
         })
+          .map((res: any) => resolveEntityKey(res))
           .map((res: IEntity) => finishCreateEntity(res, meta))
           .takeUntil(action$.ofType(CREATE(entity).CANCEL))
           .catch((error: Error) => Observable.of(failCreateEntity(error, meta)));
