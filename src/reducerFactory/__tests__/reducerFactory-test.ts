@@ -59,15 +59,15 @@ describe('Crud Reducer Factory', () => {
   describe('with a CRUD reducer', () => {
     let reducer: Reducer<CrudState>;
     const yoda = {
-      hash: '1234',
+      _internalHash: '1234',
       name: 'Yoda',
     };
     const obiWan = {
-      hash: '5678',
+      _internalHash: '5678',
       name: 'Obi Wan',
     };
     const anakin = {
-      hash: '9012',
+      _internalHash: '9012',
       name: 'Anakin',
     };
     const jedis = [yoda, obiWan];
@@ -178,7 +178,7 @@ describe('Crud Reducer Factory', () => {
       it('reads a list of entities', () => {
         const action = {
           payload: {
-            member: jedis,
+            _internalMember: jedis,
           },
           type: READ_LIST(ENTITY).FINISH,
         };
@@ -204,7 +204,7 @@ describe('Crud Reducer Factory', () => {
 
       it('updates an entity', () => {
         const darkVador = {
-          hash: '9012',
+          _internalHash: '9012',
           name: 'Dark Vador',
         };
         const action = {

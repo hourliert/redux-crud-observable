@@ -11,13 +11,13 @@ export default function deleteHandlersFactory(ENTITY: string): ReducersMapObject
       if (!action.payload) return state;
 
       return state
-        .deleteIn(['value', action.payload.hash]);
+        .deleteIn(['value', action.payload._internalHash]);
     },
 
     [DELETE_BATCH(ENTITY).FINISH](state: CrudState, action: IFinishDeleteEntitiesBatchAction): CrudState {
       if (!action.payload) return state;
 
-      const entitiesIds = action.payload.map(e => e.hash);
+      const entitiesIds = action.payload.map(e => e._internalHash);
 
       return state
         .update('value', value =>

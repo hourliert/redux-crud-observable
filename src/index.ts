@@ -5,4 +5,4 @@ export * from './actionsCreatorFactory';
 export * from './observableApiConnector';
 export * from './selectorFactory';
 export * from './epicFactory';
-export { setEntityKey, setMemberKey } from './configManager';
+export { setEntityKey, setMemberKey, resetConfig } from './configManager';

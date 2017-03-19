@@ -50,6 +50,8 @@ describe('redux-crud-observable', () => {
   } = reduxCrudObservable.crudActionsCreatorFactory(ENTITY);
 
   beforeEach(() => {
+    reduxCrudObservable.setEntityKey('apiHash');
+
     const rootReducer = reduxCrudObservable.crudReducerFactory(ENTITY);
     store = createStore(rootReducer, applyMiddleware(createEpicMiddleware(rootEpic)));
     mockServer = nock('https://api.starwars.galaxy', {
@@ -60,6 +62,7 @@ describe('redux-crud-observable', () => {
   });
 
   afterEach(() => {
+    reduxCrudObservable.resetConfig();
     nock.cleanAll();
   });
 
@@ -67,14 +70,14 @@ describe('redux-crud-observable', () => {
     mockServer
       .get('/v1/jedis/5')
       .reply(200, {
-        hash: 5,
+        apiHash: 5,
         name: 'Yoda',
       });
 
     const p = firstTwoStates(store, (states) => {
       expect(states[0].get('value').toJS()).toEqual({});
       expect(states[1].get('value').toJS()).toEqual({
-        5: { hash: 5, name: 'Yoda' },
+        5: { _internalHash: 5, apiHash: 5, name: 'Yoda' },
       });
     });
 

@@ -274,7 +274,28 @@ describe('epicFactory', () => {
           .subscribe((actions: any) => {
             try {
               expect(actions).toEqual({
-                payload: fixture,
+                payload: {
+                  _internalMember: [
+                    {
+                      id: 5,
+                      name: 'Yoda',
+                    },
+                    {
+                      id: 6,
+                      name: 'Obi Wan',
+                    },
+                  ],
+                  member: [
+                    {
+                      id: 5,
+                      name: 'Yoda',
+                    },
+                    {
+                      id: 6,
+                      name: 'Obi Wan',
+                    },
+                  ],
+                },
                 type: 'FINISH_READ_JEDIS_LIST',
               });
 

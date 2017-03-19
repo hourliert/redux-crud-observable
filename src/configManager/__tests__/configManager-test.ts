@@ -1,4 +1,4 @@
-import { configManager, setEntityKey, setMemberKey } from '../configManager';
+import { configManager, setEntityKey, setMemberKey, resetConfig } from '../configManager';
 
 describe('Config Manager', () => {
   it('gets the config manager', () => {
@@ -13,5 +13,11 @@ describe('Config Manager', () => {
   it('sets the member key in the config manager', () => {
     setMemberKey('test');
     expect(configManager.memberKey).toEqual('test');
+  });
+
+  it('sets the member key in the config manager', () => {
+    setMemberKey('test');
+    resetConfig();
+    expect(configManager.memberKey).toEqual('member');
   });
 });
