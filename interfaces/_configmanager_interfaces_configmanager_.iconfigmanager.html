@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IRequestReadEntityPayload | redux-crud-observable</title>
+	<title>IConfigManager | redux-crud-observable</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_actionscreatorfactory_interfaces_readactions_.html">&quot;actionsCreatorFactory/interfaces/readActions&quot;</a>
+					<a href="../modules/_configmanager_interfaces_configmanager_.html">&quot;configManager/interfaces/configManager&quot;</a>
 				</li>
 				<li>
-					<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html">IRequestReadEntityPayload</a>
+					<a href="_configmanager_interfaces_configmanager_.iconfigmanager.html">IConfigManager</a>
 				</li>
 			</ul>
-			<h1>Interface IRequestReadEntityPayload</h1>
+			<h1>Interface IConfigManager</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +73,14 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_actionscreatorfactory_interfaces_crudactions_.irequestcrudactionpayload.html" class="tsd-signature-type">IRequestCrudActionPayload</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">IRequestReadEntityPayload</span>
-							</li>
-						</ul>
+						<span class="target">IConfigManager</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_configmanager_configmanager_.configmanager.html" class="tsd-signature-type">ConfigManager</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -89,9 +90,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#api" class="tsd-kind-icon">api</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#queryparams" class="tsd-kind-icon">query<wbr>Params</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_configmanager_interfaces_configmanager_.iconfigmanager.html#entitykey" class="tsd-kind-icon">entity<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_configmanager_interfaces_configmanager_.iconfigmanager.html#memberkey" class="tsd-kind-icon">member<wbr>Key</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,35 +99,23 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="api" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> api</h3>
-					<div class="tsd-signature tsd-kind-icon">api<span class="tsd-signature-symbol">:</span> <a href="_observableapiconnector_interfaces_requestformatters_.iapiconfig.html" class="tsd-signature-type">IApiConfig</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="entitykey" class="tsd-anchor"></a>
+					<h3>entity<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">entity<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_actionscreatorfactory_interfaces_crudactions_.irequestcrudactionpayload.html">IRequestCrudActionPayload</a>.<a href="_actionscreatorfactory_interfaces_crudactions_.irequestcrudactionpayload.html#api">api</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/actionsCreatorFactory/interfaces/crudActions.ts#L19">actionsCreatorFactory/interfaces/crudActions.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/configManager/interfaces/configManager.ts#L2">configManager/interfaces/configManager.ts:2</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<a name="memberkey" class="tsd-anchor"></a>
+					<h3>member<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">member<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/actionsCreatorFactory/interfaces/readActions.ts#L17">actionsCreatorFactory/interfaces/readActions.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="queryparams" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> query<wbr>Params</h3>
-					<div class="tsd-signature tsd-kind-icon">query<wbr>Params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_actionscreatorfactory_interfaces_crudactions_.irequestcrudactionpayload.html">IRequestCrudActionPayload</a>.<a href="_actionscreatorfactory_interfaces_crudactions_.irequestcrudactionpayload.html#queryparams">queryParams</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/actionsCreatorFactory/interfaces/crudActions.ts#L18">actionsCreatorFactory/interfaces/crudActions.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/configManager/interfaces/configManager.ts#L3">configManager/interfaces/configManager.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -140,52 +128,22 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_actionscreatorfactory_interfaces_readactions_.html">"actions<wbr>Creator<wbr>Factory/interfaces/read<wbr>Actions"</a>
+						<a href="../modules/_configmanager_interfaces_configmanager_.html">"config<wbr>Manager/interfaces/config<wbr>Manager"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.ifinishreadentitiesbatchaction.html" class="tsd-kind-icon">IFinish<wbr>Read<wbr>Entities<wbr>Batch<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.ifinishreadentitieslistaction.html" class="tsd-kind-icon">IFinish<wbr>Read<wbr>Entities<wbr>List<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.ifinishreadentityaction.html" class="tsd-kind-icon">IFinish<wbr>Read<wbr>Entity<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.ireadactionscreators.html" class="tsd-kind-icon">IRead<wbr>Actions<wbr>Creators</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitiesaction.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entities<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitieslistaction.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entities<wbr>List<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitieslistpayload.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entities<wbr>List<wbr>Payload</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitiespayload.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entities<wbr>Payload</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentityaction.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entity<wbr>Action</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html" class="tsd-kind-icon">IRequest<wbr>Read<wbr>Entity<wbr>Payload</a>
+						<a href="_configmanager_interfaces_configmanager_.iconfigmanager.html" class="tsd-kind-icon">IConfig<wbr>Manager</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#api" class="tsd-kind-icon">api</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_configmanager_interfaces_configmanager_.iconfigmanager.html#entitykey" class="tsd-kind-icon">entity<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#id" class="tsd-kind-icon">id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_actionscreatorfactory_interfaces_readactions_.irequestreadentitypayload.html#queryparams" class="tsd-kind-icon">query<wbr>Params</a>
+								<a href="_configmanager_interfaces_configmanager_.iconfigmanager.html#memberkey" class="tsd-kind-icon">member<wbr>Key</a>
 							</li>
 						</ul>
 					</li>

@@ -76,6 +76,9 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#formatentities" class="tsd-kind-icon">format<wbr>Entities</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#formatentitieslist" class="tsd-kind-icon">format<wbr>Entities<wbr>List</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#formatentity" class="tsd-kind-icon">format<wbr>Entity</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#resolveentitieskey" class="tsd-kind-icon">resolve<wbr>Entities<wbr>Key</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#resolveentitieslistkey" class="tsd-kind-icon">resolve<wbr>Entities<wbr>List<wbr>Key</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_crudentity_formatentities_.html#resolveentitykey" class="tsd-kind-icon">resolve<wbr>Entity<wbr>Key</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,7 +96,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/dfed2ae/src/crudEntity/formatEntities.ts#L11">crudEntity/formatEntities.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L13">crudEntity/formatEntities.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -110,19 +113,19 @@
 					<a name="formatentitieslist" class="tsd-anchor"></a>
 					<h3>format<wbr>Entities<wbr>List</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">format<wbr>Entities<wbr>List<span class="tsd-signature-symbol">(</span>entities<span class="tsd-signature-symbol">: </span><a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_crudentity_interfaces_entities_.html#formattedentities" class="tsd-signature-type">FormattedEntities</a></li>
+						<li class="tsd-signature tsd-kind-icon">format<wbr>Entities<wbr>List<span class="tsd-signature-symbol">(</span>entitiesList<span class="tsd-signature-symbol">: </span><a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_crudentity_interfaces_entities_.html#formattedentities" class="tsd-signature-type">FormattedEntities</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/dfed2ae/src/crudEntity/formatEntities.ts#L17">crudEntity/formatEntities.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L19">crudEntity/formatEntities.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>entities: <a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a></h5>
+									<h5>entitiesList: <a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_crudentity_interfaces_entities_.html#formattedentities" class="tsd-signature-type">FormattedEntities</a></h4>
@@ -139,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/dfed2ae/src/crudEntity/formatEntities.ts#L5">crudEntity/formatEntities.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L7">crudEntity/formatEntities.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -149,6 +152,75 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_crudentity_interfaces_entities_.html#formattedentity" class="tsd-signature-type">FormattedEntity</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="resolveentitieskey" class="tsd-anchor"></a>
+					<h3>resolve<wbr>Entities<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">resolve<wbr>Entities<wbr>Key<span class="tsd-signature-symbol">(</span>entities<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_crudentity_interfaces_entities_.ientity.html" class="tsd-signature-type">IEntity</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L29">crudEntity/formatEntities.ts:29</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entities: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_crudentity_interfaces_entities_.ientity.html" class="tsd-signature-type">IEntity</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="resolveentitieslistkey" class="tsd-anchor"></a>
+					<h3>resolve<wbr>Entities<wbr>List<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">resolve<wbr>Entities<wbr>List<wbr>Key<span class="tsd-signature-symbol">(</span>entitiesList<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L35">crudEntity/formatEntities.ts:35</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entitiesList: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_crudentity_interfaces_entities_.ientitieslist.html" class="tsd-signature-type">IEntitiesList</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="resolveentitykey" class="tsd-anchor"></a>
+					<h3>resolve<wbr>Entity<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">resolve<wbr>Entity<wbr>Key<span class="tsd-signature-symbol">(</span>entity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_crudentity_interfaces_entities_.ientity.html" class="tsd-signature-type">IEntity</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/FoodMeUp/redux-crud-observable/blob/c9ddfd5/src/crudEntity/formatEntities.ts#L23">crudEntity/formatEntities.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>entity: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_crudentity_interfaces_entities_.ientity.html" class="tsd-signature-type">IEntity</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -175,6 +247,15 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_crudentity_formatentities_.html#formatentity" class="tsd-kind-icon">format<wbr>Entity</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_crudentity_formatentities_.html#resolveentitieskey" class="tsd-kind-icon">resolve<wbr>Entities<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_crudentity_formatentities_.html#resolveentitieslistkey" class="tsd-kind-icon">resolve<wbr>Entities<wbr>List<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_crudentity_formatentities_.html#resolveentitykey" class="tsd-kind-icon">resolve<wbr>Entity<wbr>Key</a>
 					</li>
 				</ul>
 			</nav>
