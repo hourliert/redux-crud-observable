@@ -17,7 +17,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "compile": "yarn compile:es5 & yarn compile:es2015",
     "compile:es5": "tsc -p .",
-    "compile:es2015": "tsc -p . --target es2015 --module es2015 --outDir ./es",
+    "compile:es2015": "tsc -p . --module es2015 --outDir ./es",
     "compile:watch": "yarn compile:es5 -- -w",
     "doc": "typedoc --mode modules --target ES6 --module ES6 --exclude **/*-test.ts --out doc src"
   },

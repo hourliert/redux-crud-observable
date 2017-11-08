@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-- v6
-- v7
+- v8
 before_install:
 - openssl aes-256-cbc -K $encrypted_8469635b2593_key -iv $encrypted_8469635b2593_iv
   -in id_rsa.enc -out id_rsa -d
@@ -15,10 +14,11 @@ after_success:
 - touch doc/.nojekyll
 - gh-pages-travis
 deploy:
+  skip_cleanup: true
   provider: npm
   email: hourliert@gmail.com
   api_key:
-    secure: jXJ83NIxh5i1R6B/Iab63QRRBUw6axuCzvEeDMrys6d8E+0kNbO54D7xResoYUv45LevpNPz93D7OFBmVYd0iwX25i5hii0jEUjM2KpoIv8w7H89RyRMbK81xdOMrQbbOwX3tgAr//CyeaeyYxDubDLJf8WwDSJzCVOO4Ex5a74h5dqoGO51wEHw931ufojVtKHoKHK6b/OsPHPxVzozg/WHC+C/gCYGmDyRCmfPiGfoNGWW08QIRj6iuMw//vHmSc5x8/p/0s1xA0D+RKvJddBQhzQPBvwfEKCuHeUgUBnnhwECGjaDUIItirUJFw5YcfGVPOZuBLnUKXC3hexyzrmOuKfFuvjSDuqlOSFLTBpsd7JPDB/jD6MXPtlwhNZa7DxVgpkXMhk9TmLCAoAOuF8cu369NFx3sUYDg825BMvb8dxkvN6SsxTdiyGSNmhOr0EUmvrGEdZ3xmWinb+oJlNy3Ckg5UXFt6IismTqvS5wkh+sDW+9ZOA3tc6oy08d0oOF+AztUP3lxkWYa54lNCO2tcuKPMrj1zWxhw1Etmr3mb6rOfSpdDcBh5Zg1gz9m1fBiAbbcJA/knBkhwtjaPyNyB1BzLWmjCpHuAYSN39Jojt0WRz/YO4Jfy+UcZhxlQl5kmdf0gSBEiGyHEjlz2csTia4qcMUnN9xL5ub2WU=
+    secure: pr+ZbM/k2uq6FXuiRZhldDdqcnL76nveG1vic2zueV3DVYIHOrD3Xn48q0noqqyl5HRljSEdfoGXnMerBzSCcoaVDmTrCYli/kKW2/BRkk7k8J8M/1Qcfif7bdKn7xI+fKjb4QTV89EJz/qatIx4+UFHtaBfmP2swvyvYtx754D08/kynQfAVbZvSmEtVYGA+5s7D+8c8Mz82KLDGNFEeCzIFy6ySoLUlhwDu+C5MOGhEg9o6+Lz9v3Q2H4ZlpUwi8uD1f6iUanqKmlo/c/d76c8tLVF/vKaRSrrViSNVVpX2YNwwCjvhvRG2X6AFye8pMZaYj6dJfsieBOMn7FuJFhb9oUsZBpruEAA1coRhzSaOkldgTArAzJvcVcXPpkALtGhpQ7LnEmDd/evwtl3jM3Z3tiWo/vaZfFYhlcHzo6Z4QZ/zY+DFwLetbvG1R71GqircA0/izUsJEV1tDKnybnpFCYkgJIqIFWsoET7det9q+MV9mUPJNB9UQySUav2kiUOstkUnuOyibM11e9VJSPvBP6RgJZR4uKDmfx9av4zIasq9c67GIGpZdg2w5kFr/CTyutR5qdgOdlN58NUbk+eWpLm0CVYQGbaUkxi2kIhcyh8N3trX+EleewHSlfr0xOjPqSjWdtOj3+DRGWnd7U107W2Mt0y9XB2GoMgBxU=
   on:
     tags: true
     repo: FoodMeUp/redux-crud-observable
